@@ -1,3 +1,5 @@
+"use client";
+
 import { EventsContext } from "@/contexts/EventsContext";
 import { useContext } from "react";
 import { Separator } from "@/components/ui/separator";

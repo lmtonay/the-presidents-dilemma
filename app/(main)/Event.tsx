@@ -1,3 +1,5 @@
+"use client";
+
 import { cn, flatten, influenceFormat } from "@/lib/utils";
 
 /**

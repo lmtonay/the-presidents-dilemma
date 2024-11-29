@@ -1,3 +1,5 @@
+"use client";
+
 import { Separator } from "@/components/ui/separator";
 import { CountryInfo } from "@/schema/stats";
 import React from "react";

@@ -1,3 +1,5 @@
+"use client";
+
 import { StatsContext } from "@/contexts/StatsContext";
 import { useContext } from "react";
 
