@@ -53,6 +53,10 @@ const defaultStats: Stats = {
       republican: 30,
       overall: 50,
     },
+    judiciary: {
+      supremeCourt: 90,
+      highCourt: 85,
+    },
     military: {
       army: 75,
       airForce: 70,
@@ -84,6 +88,8 @@ const defaultStats: Stats = {
     infrastructure: 50,
     technology: 50,
     environment: 40,
+    tourism: 60,
+    culture: 55,
     crime: 50,
     corruption: 45,
   },
@@ -99,178 +105,6 @@ const defaultStats: Stats = {
       salesTax: 8,
       importTax: 15,
       exportTax: 5,
-    },
-  },
-};
-
-const easyStats: Stats = {
-  presidentInfo: {
-    name: "",
-    party: "",
-    term: "2021-2025",
-    money: 10000000, // A comfortable amount for a developed country leader.
-    age: 42,
-    partyName: "",
-  },
-  gameData: {
-    date: "01.01.2021",
-    day: 1,
-  },
-  countryInfo: {
-    name: "",
-    population: 65000000, // Smaller, well-developed population.
-    area: 480000, // Well-planned large area.
-    capital: "",
-    currency: "",
-    continent: "",
-    language: "",
-  },
-  support: {
-    citizens: {
-      conservative: 70,
-      liberal: 80,
-    },
-    parliament: {
-      democratic: 70,
-      green: 60,
-      nationalist: 40,
-      islamist: 58,
-      communist: 15,
-      republican: 67,
-      overall: 70,
-    },
-    military: {
-      army: 90,
-      airForce: 90,
-      navy: 90,
-    },
-    international: {
-      global: 85,
-      eastern: 80,
-      western: 90,
-      middleEast: 75,
-      unitedNations: 85,
-      europeanUnion: 80,
-      SAARC: 75,
-      OIC: 65,
-      ASEAN: 70,
-      IMF: 85,
-    },
-  },
-  moral: {
-    approval: 80,
-    happiness: 85,
-    stability: 85,
-    security: 90,
-    economy: 90,
-    healthcare: 90,
-    education: 90,
-    religion: 60,
-    humanRights: 85,
-    infrastructure: 90,
-    technology: 90,
-    environment: 85,
-    crime: 20,
-    corruption: 15,
-  },
-  finance: {
-    treasury: 7000000000,
-    income: 1500000000,
-    expense: 1000000000,
-    debt: 500000000,
-    tax: {
-      incomeTax: 20,
-      corporateTax: 15,
-      propertyTax: 10,
-      salesTax: 5,
-      importTax: 5,
-      exportTax: 2,
-    },
-  },
-};
-
-const toughStats: Stats = {
-  presidentInfo: {
-    name: "",
-    party: "",
-    term: "2021-2025",
-    money: 500000,
-    age: 40,
-    partyName: "",
-  },
-  gameData: {
-    date: "01.01.2021",
-    day: 1,
-  },
-  countryInfo: {
-    name: "",
-    population: 30000000,
-    area: 120000,
-    capital: "",
-    currency: "",
-    continent: "",
-    language: "",
-  },
-  support: {
-    citizens: {
-      conservative: 70,
-      liberal: 30,
-    },
-    parliament: {
-      nationalist: 65,
-      islamist: 60,
-      democratic: 40,
-      communist: 30,
-      green: 20,
-      republican: 25,
-      overall: 40,
-    },
-    military: {
-      army: 50,
-      airForce: 45,
-      navy: 40,
-    },
-    international: {
-      global: 40,
-      eastern: 45,
-      western: 35,
-      middleEast: 50,
-      unitedNations: 40,
-      europeanUnion: 30,
-      SAARC: 50,
-      OIC: 55,
-      ASEAN: 35,
-      IMF: 25,
-    },
-  },
-  moral: {
-    approval: 40,
-    happiness: 35,
-    stability: 30,
-    security: 40,
-    economy: 30,
-    healthcare: 25,
-    education: 30,
-    religion: 70,
-    humanRights: 30,
-    infrastructure: 20,
-    technology: 25,
-    environment: 20,
-    crime: 60,
-    corruption: 70,
-  },
-  finance: {
-    treasury: 50000000,
-    income: 10000000,
-    expense: 15000000,
-    debt: 100000000,
-    tax: {
-      incomeTax: 8,
-      corporateTax: 10,
-      propertyTax: 5,
-      salesTax: 15,
-      importTax: 25,
-      exportTax: 10,
     },
   },
 };
@@ -663,12 +497,13 @@ export const getStats = (
 ): Stats => {
   let statsToReturn: Stats;
 
+  //! Have to add the other difficulties
   switch (difficulty) {
     case "easy":
-      statsToReturn = easyStats;
+      statsToReturn = defaultStats;
       break;
     case "tough":
-      statsToReturn = toughStats;
+      statsToReturn = defaultStats;
       break;
     default:
       statsToReturn = defaultStats;

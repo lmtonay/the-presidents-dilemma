@@ -45,6 +45,11 @@ export type Parliament = {
   overall: number;
 };
 
+export type Judiciary = {
+  supremeCourt: number;
+  highCourt: number;
+};
+
 export type Support = {
   citizens: {
     conservative: number;
@@ -56,6 +61,7 @@ export type Support = {
     airForce: number;
   };
   parliament: Parliament;
+  judiciary: Judiciary;
   international: InternationalSupport;
 };
 
@@ -74,6 +80,8 @@ export type Moral = {
   religion: number;
   approval: number;
   corruption: number;
+  tourism: number;
+  culture: number;
 };
 
 export type Tax = {
