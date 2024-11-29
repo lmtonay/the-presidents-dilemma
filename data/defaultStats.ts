@@ -1,4 +1,5 @@
 import Stats from "@/schema/stats";
+import { Parliament } from "@/schema/stats";
 
 type Country = {
   capital: string;
@@ -17,23 +18,118 @@ type PoliticalParty = {
   republican: string[];
 };
 
+const easyStats: Stats = {
+  presidentInfo: {
+    name: "John Doe",
+    party: "Liberal Party",
+    term: "2021-2025",
+    money: 500000000,
+    age: 50,
+    partyName: "Liberal Party",
+  },
+  gameData: {
+    date: "01.01.2021",
+    day: 1,
+    new: true,
+    difficulty: "easy",
+  },
+  countryInfo: {
+    name: "Developedland",
+    population: 70000000,
+    area: 300000,
+    capital: "Developed City",
+    currency: "Developed Dollar",
+    continent: "Europe",
+    language: "English",
+  },
+  support: {
+    citizens: {
+      conservative: 40,
+      liberal: 80,
+    },
+    parliament: {
+      democratic: 90,
+      green: 60,
+      nationalist: 30,
+      islamist: 20,
+      communist: 10,
+      republican: 10,
+    },
+    judiciary: {
+      supremeCourt: 80,
+      highCourt: 75,
+    },
+    military: {
+      army: 80,
+      airForce: 85,
+      navy: 75,
+    },
+    international: {
+      global: 80,
+      eastern: 50,
+      western: 85,
+      middleEast: 60,
+      unitedNations: 85,
+      europeanUnion: 90,
+      SAARC: 70,
+      OIC: 60,
+      ASEAN: 75,
+      IMF: 90,
+    },
+  },
+  moral: {
+    approval: 85,
+    happiness: 85,
+    stability: 80,
+    security: 90,
+    economy: 80,
+    healthcare: 90,
+    education: 90,
+    religion: 60,
+    humanRights: 85,
+    infrastructure: 90,
+    technology: 80,
+    environment: 80,
+    tourism: 85,
+    culture: 80,
+    crime: 20,
+    corruption: 10,
+  },
+  finance: {
+    treasury: 200000000000,
+    income: 15000000000,
+    expense: 12000000000,
+    debt: 5000000000,
+    tax: {
+      incomeTax: 25,
+      corporateTax: 22,
+      propertyTax: 10,
+      salesTax: 10,
+      importTax: 5,
+      exportTax: 5,
+    },
+  },
+};
+
 const defaultStats: Stats = {
   presidentInfo: {
     name: "",
     party: "",
     term: "2021-2025",
-    money: 3000000,
-    age: 35,
+    money: 250000000,
+    age: 50,
     partyName: "",
   },
   gameData: {
     date: "01.01.2021",
     day: 1,
+    new: true,
+    difficulty: "normal",
   },
   countryInfo: {
     name: "",
-    population: 171000000,
-    area: 147570,
+    population: 100000000,
+    area: 231942,
     capital: "",
     currency: "",
     continent: "",
@@ -41,70 +137,162 @@ const defaultStats: Stats = {
   },
   support: {
     citizens: {
-      conservative: 55,
-      liberal: 45,
+      conservative: 60,
+      liberal: 60,
     },
     parliament: {
-      democratic: 60,
-      green: 35,
-      nationalist: 40,
+      democratic: 50,
+      green: 50,
+      nationalist: 50,
       islamist: 50,
-      communist: 30,
-      republican: 30,
-      overall: 50,
+      communist: 50,
+      republican: 50,
     },
     judiciary: {
-      supremeCourt: 90,
-      highCourt: 85,
+      supremeCourt: 60,
+      highCourt: 60,
     },
     military: {
-      army: 75,
-      airForce: 70,
-      navy: 65,
+      army: 60,
+      airForce: 60,
+      navy: 60,
     },
     international: {
       global: 60,
-      eastern: 65,
-      western: 55,
-      middleEast: 70,
+      eastern: 60,
+      western: 60,
+      middleEast: 60,
       unitedNations: 60,
-      europeanUnion: 50,
-      SAARC: 80,
-      OIC: 75,
-      ASEAN: 50,
-      IMF: 55,
+      europeanUnion: 60,
+      SAARC: 60,
+      OIC: 60,
+      ASEAN: 60,
+      IMF: 60,
     },
   },
   moral: {
-    approval: 55,
-    happiness: 50,
-    stability: 50,
+    approval: 60,
+    happiness: 60,
+    stability: 60,
     security: 60,
-    economy: 55,
-    healthcare: 45,
-    education: 50,
+    economy: 60,
+    healthcare: 60,
+    education: 60,
     religion: 60,
-    humanRights: 50,
-    infrastructure: 50,
-    technology: 50,
-    environment: 40,
+    humanRights: 60,
+    infrastructure: 60,
+    technology: 60,
+    environment: 60,
     tourism: 60,
-    culture: 55,
-    crime: 50,
-    corruption: 45,
+    culture: 60,
+    crime: 40,
+    corruption: 40,
   },
   finance: {
-    treasury: 1000000000,
-    income: 50000000,
-    expense: 45000000,
-    debt: 200000000,
+    treasury: 100000000000,
+    income: 5000000000,
+    expense: 5000000000,
+    debt: 20000000000,
     tax: {
-      incomeTax: 10,
-      corporateTax: 12,
-      propertyTax: 10,
-      salesTax: 8,
+      incomeTax: 15,
+      corporateTax: 15,
+      propertyTax: 15,
+      salesTax:15,
       importTax: 15,
-      exportTax: 5,
+      exportTax:15,
+    },
+  },
+};
+
+const toughStats: Stats = {
+  presidentInfo: {
+    name: "Ahmed Ali",
+    party: "Nationalist Party",
+    term: "2021-2025",
+    money: 10000000,
+    age: 45,
+    partyName: "Nationalist Party",
+  },
+  gameData: {
+    date: "01.01.2021",
+    day: 1,
+    new: true,
+    difficulty: "tough",
+  },
+  countryInfo: {
+    name: "Less Developedland",
+    population: 200000000,
+    area: 500000,
+    capital: "Underdeveloped City",
+    currency: "Poorland Currency",
+    continent: "Africa",
+    language: "Local Language",
+  },
+  support: {
+    citizens: {
+      conservative: 60,
+      liberal: 40,
+    },
+    parliament: {
+      democratic: 20,
+      green: 10,
+      nationalist: 60,
+      islamist: 50,
+      communist: 20,
+      republican: 20,
+    },
+    judiciary: {
+      supremeCourt: 40,
+      highCourt: 35,
+    },
+    military: {
+      army: 50,
+      airForce: 40,
+      navy: 30,
+    },
+    international: {
+      global: 40,
+      eastern: 50,
+      western: 30,
+      middleEast: 70,
+      unitedNations: 20,
+      europeanUnion: 10,
+      SAARC: 15,
+      OIC: 60,
+      ASEAN: 25,
+      IMF: 10,
+    },
+  },
+  moral: {
+    approval: 40,
+    happiness: 30,
+    stability: 40,
+    security: 50,
+    economy: 30,
+    healthcare: 20,
+    education: 25,
+    religion: 80,
+    humanRights: 30,
+    infrastructure: 25,
+    technology: 20,
+    environment: 30,
+    tourism: 10,
+    culture: 50,
+    crime: 80,
+    corruption: 70,
+  },
+  finance: {
+    treasury: 5000000000,
+    income: 200000000,
+    expense: 500000000,
+    debt: 20000000000,
+    tax: {
+      incomeTax: 5,
+      corporateTax: 10,
+      propertyTax: 5,
+      salesTax: 10,
+      importTax: 15,
+      exportTax: 10,
     },
   },
 };
@@ -490,20 +678,37 @@ const politicalParties: PoliticalParty = {
 
 export const getStats = (
   difficulty: string,
-  president?: string,
-  partyName?: string,
-  country?: string,
-  capital?: string
+  options?: {
+    president?: string;
+    partyName?: string;
+    country?: string;
+    capital?: string;
+    presidentAge?: number;
+    partyType?: string;
+    continent?: string;
+    language?: string;
+    currency?: string;
+  }
 ): Stats => {
+  const {
+    president,
+    partyName,
+    country,
+    capital,
+    presidentAge,
+    partyType,
+    continent,
+    language,
+    currency,
+  } = options || {};
   let statsToReturn: Stats;
 
-  //! Have to add the other difficulties
   switch (difficulty) {
     case "easy":
-      statsToReturn = defaultStats;
+      statsToReturn = easyStats;
       break;
     case "tough":
-      statsToReturn = defaultStats;
+      statsToReturn = toughStats;
       break;
     default:
       statsToReturn = defaultStats;
@@ -516,12 +721,12 @@ export const getStats = (
   const randomCountryData = countriesWithDetails[randomCountry];
   statsToReturn.countryInfo.name = country || randomCountry;
   statsToReturn.countryInfo.capital = capital || randomCountryData.capital;
-  statsToReturn.countryInfo.currency = randomCountryData.currency;
-  statsToReturn.countryInfo.continent = randomCountryData.continent;
-  statsToReturn.countryInfo.language = randomCountryData.language;
   statsToReturn.presidentInfo.name = president || randomCountryData.president;
+  statsToReturn.countryInfo.continent =
+    continent || randomCountryData.continent;
+  statsToReturn.countryInfo.language = language || randomCountryData.language;
+  statsToReturn.countryInfo.currency = currency || randomCountryData.currency;
 
-  // get a random party type and name. assign them to the stats. add country name prefix to party name
   const partyKeys = Object.keys(politicalParties);
   const randomPartyType = partyKeys[
     Math.floor(Math.random() * partyKeys.length)
@@ -531,10 +736,15 @@ export const getStats = (
       Math.floor(Math.random() * politicalParties[randomPartyType].length)
     ];
 
-  statsToReturn.presidentInfo.party = randomPartyType;
+  statsToReturn.presidentInfo.party = partyType || randomPartyType;
   statsToReturn.presidentInfo.partyName = partyName
     ? `${country || randomCountry} ${partyName}`
     : `${country || randomCountry} ${randomPartyName}`;
+
+  statsToReturn.support.parliament[partyType as keyof Parliament || randomPartyType as keyof Parliament] = 90;
+
+  statsToReturn.presidentInfo.age =
+    presidentAge || Math.floor(Math.random() * 45) + 35;
 
   return statsToReturn;
 };

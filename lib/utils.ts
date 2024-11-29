@@ -33,9 +33,24 @@ export const flatten = (
   return res;
 };
 
-export function influenceFormat (key: string, value: number) {
-  if (key.toLowerCase().includes('finance')) {
-    return `৳${value > 0 ? '+' : ''}${value}`;
+export function influenceFormat(key: string, value: number) {
+  if (key.toLowerCase().includes("finance")) {
+    return `৳${value > 0 ? "+" : ""}${value}`;
   }
-  return `${value > 0 ? '+' : ''}${value}`;
+  return `${value > 0 ? "+" : ""}${value}`;
+}
+
+export function sentenceToWord(sentence: string) {
+  return sentence
+    .split(" ")
+    .map((word) => capitalize(word))
+    .join(" ");
+}
+
+export function n2MB(n: number) {
+  if (n < 1000) return n;
+  if (n < 1000000) return `${(n / 1000).toFixed(2)}K`;
+  if (n < 1000000000) return `${(n / 1000000).toFixed(2)}M`;
+  if (n < 1000000000000) return `${(n / 1000000000).toFixed(2)}B`;
+  return `${(n / 1000000000000).toFixed(2)}T`;
 }

@@ -10,6 +10,8 @@ export type PresidentInfo = {
 export type GameData = {
   date: string;
   day: number;
+  new: boolean;
+  difficulty: string;
 };
 
 export type CountryInfo = {
@@ -42,7 +44,6 @@ export type Parliament = {
   islamist: number;
   nationalist: number;
   republican: number;
-  overall: number;
 };
 
 export type Judiciary = {

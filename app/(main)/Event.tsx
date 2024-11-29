@@ -46,23 +46,60 @@ const Event: React.FC<EventProps> = ({
       </div>
     </div>
     <p className="text-md mb-2">{description}</p>
-    <ul className="text-xs list-disc ps-5">
-      {Object.entries(flatten(influence)).map(([key, value], i) => (
-        <li key={i} className="list-item">
-          <b>{reverseString(key)}</b>:{" "}
-          <b
-            className={cn(
-              {
-                "bg-green-500": value > 0,
-                "bg-red-500": value < 0,
-              },
-              "p-[2px] py-0 text-white rounded"
-            )}
-          >
-            {influenceFormat(key, value)}
-          </b>
-        </li>
-      ))}
+    <ul className="text-xs list-disc">
+      <div className="grid grid-cols-2 gap-4">
+        <div>
+          {
+            // first half of the influence object
+            Object.entries(flatten(influence))
+              .slice(
+                0,
+                Math.ceil(Object.entries(flatten(influence)).length / 2)
+              )
+              .map(([key, value], i) => (
+                <li key={i} className="flex justify-between items-center my-1">
+                  <b>{reverseString(key)}:</b>
+                  <b
+                    className={cn(
+                      {
+                        "bg-green-500": value > 0,
+                        "bg-red-500": value < 0,
+                      },
+                      "p-[2px] py-0 text-white rounded"
+                    )}
+                  >
+                    {influenceFormat(key, value)}
+                  </b>
+                </li>
+              ))
+          }
+        </div>
+        <div>
+          {
+            Object.entries(flatten(influence))
+              .slice(
+                Math.ceil(Object.entries(flatten(influence)).length / 2),
+                Object.entries(flatten(influence)).length
+              )
+              .map(([key, value], i) => (
+                <li key={i} className="flex justify-between items-center my-1">
+                  <b>{reverseString(key)}:</b>
+                  <b
+                    className={cn(
+                      {
+                        "bg-green-500": value > 0,
+                        "bg-red-500": value < 0,
+                      },
+                      "p-[2px] py-0 text-white rounded"
+                    )}
+                  >
+                    {influenceFormat(key, value)}
+                  </b>
+                </li>
+              ))
+          }
+        </div>
+      </div>
     </ul>
   </div>
 );

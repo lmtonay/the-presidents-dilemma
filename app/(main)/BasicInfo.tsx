@@ -1,6 +1,7 @@
 "use client";
 
 import { Separator } from "@/components/ui/separator";
+import { n2MB } from "@/lib/utils";
 import { CountryInfo } from "@/schema/stats";
 import React from "react";
 
@@ -20,7 +21,7 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ country }) => {
           <div className="border-r-2">
             <div>
               <small>
-                Population: <i>{(country?.population / 1000000).toFixed(2)}M</i>
+                Population: <i>{n2MB(country?.population)}</i>
               </small>
             </div>
             <div>
@@ -34,7 +35,7 @@ const BasicInfo: React.FC<BasicInfoProps> = ({ country }) => {
           </div>
           <div>
             <div>
-              <small>Area: <i>{country?.area} km²</i></small>
+            <small>Area: <i>{n2MB(country?.area)} km²</i></small>
             </div>
             <div>
               <small>Currency: <i>{country?.currency}</i></small>

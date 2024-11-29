@@ -4,11 +4,13 @@ import { getStats } from "@/data/defaultStats";
 import Stats from "@/schema/stats";
 import React, { createContext, useState, useEffect } from "react";
 
+const defaultStats = getStats("normal");
+
 const StatsContext = createContext<{
   stats: Stats;
   setStats: React.Dispatch<React.SetStateAction<Stats>>;
 }>({
-  stats: getStats("easy"),
+  stats: defaultStats,
   setStats: () => {},
 });
 
@@ -19,15 +21,15 @@ const StatsProvider: React.FC<{ children: React.ReactNode }> = ({
     // Load initial state from localStorage
     const savedStats =
       typeof window !== "undefined" ? localStorage.getItem("stats") : null;
-      
-    //* TODO: Uncomment below line
-    //  return savedStats ? JSON.parse(savedStats) : toughStats;
-    //! remove below line
-    return getStats("easy");
+
+    return savedStats ? JSON.parse(savedStats) : defaultStats;
   });
 
+
   useEffect(() => {
-    localStorage.setItem("stats", JSON.stringify(stats));
+    if (typeof window !== "undefined" && !stats.gameData.new) {
+      localStorage.setItem("stats", JSON.stringify(stats));
+    }
   }, [stats]);
 
   return (
@@ -36,5 +38,4 @@ const StatsProvider: React.FC<{ children: React.ReactNode }> = ({
     </StatsContext.Provider>
   );
 };
-
 export { StatsContext, StatsProvider };
