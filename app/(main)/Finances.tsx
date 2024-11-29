@@ -16,7 +16,7 @@ const Finances: React.FC<FinanceProps> = ({ data }) => {
   return (
     <div className="my-1 p-2 rounded border-2 border-red-500">
       <h4 className="text-lg text-red-500 font-bold">Finances</h4>
-      <Separator className="mb-1" />
+      <Separator className="mb-2" />
       <div className="flex flex-col gap-2">
         {Object.entries(data).map(
           ([key, value], i) =>
@@ -25,10 +25,10 @@ const Finances: React.FC<FinanceProps> = ({ data }) => {
                 key={i}
                 className="flex flex-row justify-between items-center"
               >
-                <h5>{key.charAt(0).toUpperCase() + key.slice(1)}</h5>
-                <p>
+                <h5 className="text-sm">{key.charAt(0).toUpperCase() + key.slice(1)}</h5>
+                <small>
                   ৳{typeof value === "number" ? value : JSON.stringify(value)}
-                </p>
+                </small>
               </div>
             )
         )}

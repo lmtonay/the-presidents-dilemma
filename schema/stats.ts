@@ -1,6 +1,7 @@
 export type PresidentInfo = {
   name: string;
   party: string;
+  partyName: string;
   term: string;
   money: number;
   age: number;
@@ -17,6 +18,8 @@ export type CountryInfo = {
   area: number;
   capital: string;
   currency: string;
+  continent: string;
+  language: string;
 };
 
 export type InternationalSupport = {

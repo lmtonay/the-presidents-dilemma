@@ -1,6 +1,6 @@
 "use client";
 
-import { defaultStats } from "@/data/defaultStats";
+import { getStats } from "@/data/defaultStats";
 import Stats from "@/schema/stats";
 import React, { createContext, useState, useEffect } from "react";
 
@@ -8,7 +8,7 @@ const StatsContext = createContext<{
   stats: Stats;
   setStats: React.Dispatch<React.SetStateAction<Stats>>;
 }>({
-  stats: defaultStats,
+  stats: getStats("easy"),
   setStats: () => {},
 });
 
@@ -21,9 +21,9 @@ const StatsProvider: React.FC<{ children: React.ReactNode }> = ({
       typeof window !== "undefined" ? localStorage.getItem("stats") : null;
       
     //* TODO: Uncomment below line
-    //  return savedStats ? JSON.parse(savedStats) : defaultStats;
+    //  return savedStats ? JSON.parse(savedStats) : toughStats;
     //! remove below line
-    return defaultStats;
+    return getStats("easy");
   });
 
   useEffect(() => {

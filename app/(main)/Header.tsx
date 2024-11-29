@@ -28,12 +28,12 @@ const Header: React.FC = () => {
         {/* this will display the ingame date and president's name */}
         <div className="flex justify-between">
           <div>
-            <h5 className="text-md font-bold">Day {stats?.gameData?.day}</h5>
-            <h5 className="text-md font-bold">{stats?.gameData?.date}</h5>
+            <h5 className="text-md font-bold">Day {stats?.gameData?.day} - {stats?.gameData?.date}</h5>
+            <h5 className="text-md font-bold">Balance: ৳{stats?.presidentInfo?.money}</h5>
           </div>
           <div className="text-end">
             <h5 className="text-md font-bold">President {stats?.presidentInfo?.name}</h5>
-            <h5 className="text-md font-bold">{stats?.presidentInfo?.party} - Term: {stats?.presidentInfo?.term}</h5>
+            <h5 className="text-md font-bold">{stats?.presidentInfo?.partyName} - Term: {stats?.presidentInfo?.term}</h5>
           </div>
         </div>
       </div>
