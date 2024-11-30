@@ -17,7 +17,10 @@ interface InputFieldProps extends React.InputHTMLAttributes<HTMLInputElement> {
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   className?: string;
   isDropdown?: boolean;
-  options?: string[];
+  options?: {
+    label: string;
+    value: string;
+  }[];
   defaultSelected?: string;
   onValueChange?: (v: string) => void;
 }
@@ -45,8 +48,8 @@ const InputField: React.FC<InputFieldProps> = ({
           </SelectTrigger>
           <SelectContent>
             {options?.map((option) => (
-              <SelectItem key={option} value={option}>
-                {option}
+              <SelectItem key={option.value} value={option.value}>
+                {option.label}
               </SelectItem>
             ))}
           </SelectContent>

@@ -1,3 +1,5 @@
+"use client";
+
 import { IconType } from "react-icons";
 import {
   FaMoneyBillWave,
@@ -37,11 +39,13 @@ import {
   FaRegTimesCircle,
 } from "react-icons/fa";
 import { PiSpinnerFill } from "react-icons/pi";
+import { MdFiberNew } from "react-icons/md";
 
 export type ActionButton = {
   name: string;
   icon: IconType;
-  onClick: () => void;
+  onClick?: () => void;
+  route?: string;
 };
 
 export type ActionButtons = {
@@ -51,14 +55,25 @@ export type ActionButtons = {
   "foreign relations": ActionButton[];
   "social and cultural": ActionButton[];
   "chaos and misc": ActionButton[];
+  "game actions": ActionButton[];
 };
 
 const actionButtons: ActionButtons = {
+  "game actions": [
+    {
+      name: "New Game",
+      icon: MdFiberNew,
+      onClick: () => {
+        localStorage.clear();
+        window.location.reload();
+      },
+    },
+  ],
   governance: [
     {
       name: "Parliament",
       icon: FaLandmark,
-      onClick: () => {},
+      route: '/parliament',
     },
     {
       name: "Secretariat",

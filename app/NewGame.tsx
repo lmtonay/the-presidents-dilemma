@@ -5,22 +5,152 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { StatsContext } from "@/contexts/StatsContext";
 import { startGame } from "@/lib/gameFunctions";
+import { capitalize } from "@/lib/utils";
 import React, { useContext } from "react";
+
+type Field = {
+  label: string;
+  default: string | number | undefined;
+  isDropdown?: boolean;
+  options?: { label: string; value: string }[];
+  type?: string;
+  key: keyof Data;
+};
+
+type Data = {
+  difficulty: string;
+  continent: string;
+  countryName: string;
+  capitalCity: string;
+  presidentName: string;
+  presidentAge: number;
+  currency: string;
+  language: string;
+  partyType: string;
+  partyName: string;
+};
 
 const NewGame: React.FC = () => {
   const { stats } = useContext(StatsContext);
 
-  const data = {
-    difficulty: stats?.gameData?.difficulty,
-    continent: stats?.countryInfo?.continent,
-    countryName: stats?.countryInfo?.name,
-    capitalCity: stats?.countryInfo?.capital,
-    presidentName: stats?.presidentInfo?.name,
-    presidentAge: stats?.presidentInfo?.age,
-    currency: stats?.countryInfo?.currency,
-    language: stats?.countryInfo?.language,
-    partyType: stats?.presidentInfo?.party,
-    partyName: stats?.presidentInfo?.partyName,
+  const data: Data = {
+    difficulty: stats?.gameData?.difficulty || "",
+    continent: stats?.countryInfo?.continent || "",
+    countryName: stats?.countryInfo?.name || "",
+    capitalCity: stats?.countryInfo?.capital || "",
+    presidentName: stats?.presidentInfo?.name || "",
+    presidentAge: stats?.presidentInfo?.age || 0,
+    currency: stats?.countryInfo?.currency || "",
+    language: stats?.countryInfo?.language || "",
+    partyType: stats?.presidentInfo?.party || "",
+    partyName: stats?.presidentInfo?.partyName || "",
+  };
+
+  const fields: Field[] = [
+    {
+      label: "Difficulty",
+      default: stats?.gameData?.difficulty,
+      isDropdown: true,
+      options: [
+        {
+          label: "Easy (Preset for a developed country)",
+          value: "easy",
+        },
+        {
+          label: "Normal (Preset for a developing country)",
+          value: "normal",
+        },
+        {
+          label: "Tough (Preset for an underdeveloped country)",
+          value: "tough",
+        },
+      ],
+      key: "difficulty",
+    },
+    {
+      label: "Continent",
+      default: stats?.countryInfo?.continent,
+      isDropdown: true,
+      options: [
+        {
+          label: "Asia",
+          value: "Asia",
+        },
+        {
+          label: "Europe",
+          value: "Europe",
+        },
+        {
+          label: "Africa",
+          value: "Africa",
+        },
+        {
+          label: "North America",
+          value: "North America",
+        },
+        {
+          label: "South America",
+          value: "South America",
+        },
+        {
+          label: "Oceania",
+          value: "Oceania",
+        },
+      ],
+      key: "continent",
+    },
+    {
+      label: "Country Name",
+      default: stats?.countryInfo?.name,
+      key: "countryName",
+    },
+    {
+      label: "Capital City",
+      default: stats?.countryInfo?.capital,
+      key: "capitalCity",
+    },
+    {
+      label: "President Name",
+      default: stats?.presidentInfo?.name,
+      key: "presidentName",
+    },
+    {
+      label: "President Age",
+      default: stats?.presidentInfo?.age,
+      key: "presidentAge",
+      type: "number",
+    },
+    {
+      label: "Party Type",
+      default: stats?.presidentInfo?.party,
+      isDropdown: true,
+      options: Object.keys(stats?.support?.parliament).map((s) => {
+        return {
+          label: capitalize(s),
+          value: s,
+        };
+      }),
+      key: "partyType",
+    },
+    {
+      label: "Party Name",
+      default: stats?.presidentInfo?.partyName,
+      key: "partyName",
+    },
+    {
+      label: "Currency",
+      default: stats?.countryInfo?.currency,
+      key: "currency",
+    },
+    {
+      label: "Language",
+      default: stats?.countryInfo?.language,
+      key: "language",
+    },
+  ];
+
+  const updateData = <K extends keyof Data>(key: K, value: Data[K]) => {
+    data[key] = value;
   };
 
   return stats?.gameData?.new ? (
@@ -41,124 +171,25 @@ const NewGame: React.FC = () => {
           <b>Or,</b> customize your experience
         </p>
         <div>
-          <InputField
-            label={
-              "Difficulty (Default selected is " +
-              stats?.gameData?.difficulty +
-              ")"
-            }
-            placeholder="Difficulty"
-            className="mt-2"
-            onValueChange={(value) => {
-              data.difficulty = value;
-            }}
-            isDropdown
-            options={["easy", "normal", "tough"]}
-            defaultValue={stats?.gameData?.difficulty}
-          />
-          <InputField
-            label={
-              "Continent (Default selected is " +
-              stats?.countryInfo?.continent +
-              ")"
-            }
-            placeholder="Continent"
-            className="mt-2"
-            onValueChange={(value) => {
-              data.continent = value;
-            }}
-            isDropdown
-            options={[
-              "Asia",
-              "Europe",
-              "Africa",
-              "North America",
-              "South America",
-              "Oceania",
-            ]}
-            defaultValue={stats?.countryInfo?.continent}
-          />
-          <InputField
-            label="Country Name"
-            placeholder="Enter your country name"
-            className="mt-2"
-            onChange={(e) => {
-              data.countryName = e.target.value;
-            }}
-            defaultValue={stats?.countryInfo?.name}
-          />
-          <InputField
-            label="Capital City"
-            placeholder="Enter your capital city"
-            className="mt-2"
-            onChange={(e) => {
-              data.capitalCity = e.target.value;
-            }}
-            defaultValue={stats?.countryInfo?.capital}
-          />
-          <InputField
-            label="President Name"
-            placeholder="Enter your president name"
-            className="mt-2"
-            onChange={(e) => {
-              data.presidentName = e.target.value;
-            }}
-            defaultValue={stats?.presidentInfo?.name}
-          />
-          <InputField
-            label="President Age"
-            placeholder="Enter your president age"
-            type="number"
-            className="mt-2"
-            onChange={(e) => {
-              data.presidentAge = parseInt(e.target.value);
-            }}
-            defaultValue={stats?.presidentInfo?.age}
-          />
-          <InputField
-            label={
-              "Party Type (Default selected is " +
-              stats?.presidentInfo?.party +
-              ")"
-            }
-            placeholder="Enter your party type"
-            className="mt-2"
-            onValueChange={(value) => {
-              data.partyType = value;
-            }}
-            isDropdown
-            options={Object.keys(stats?.support?.parliament).map((s) =>
-              s.toUpperCase()
-            )}
-            defaultValue={stats?.presidentInfo?.party}
-          />
-          <InputField
-            label="Party Name"
-            placeholder="Enter your party name (country name will be added as prefix)"
-            className="mt-2"
-            onChange={(e) => {
-              data.partyName = e.target.value;
-            }}
-            defaultValue={stats?.presidentInfo?.partyName}
-          />
-          <InputField
-            label="Currency"
-            placeholder="Enter your currency"
-            className="mt-2"
-            onChange={(e) => {
-              data.currency = e.target.value;
-            }}
-            defaultValue={stats?.countryInfo?.currency}
-          />
-          <InputField
-            label="Language"
-            placeholder="Enter your language"
-            className="mt-2"
-            onChange={(e) => {
-              data.language = e.target.value;
-            }}
-            defaultValue={stats?.countryInfo?.language}
-          />
+          {fields.map((field, index) => {
+            return (
+              <InputField
+                key={index}
+                label={
+                  field.isDropdown ? field.label + " Default selected: " + field.default : field.label
+                }
+                defaultValue={field.default}
+                isDropdown={field.isDropdown}
+                options={field.options}
+                type={field.type}
+                onChange={(e) =>
+                  updateData(field.key, field.type === "number" ? +e.target.value : e.target.value)
+                }
+                onValueChange={(value) => updateData(field.key, value)}
+                placeholder={field.label}
+              />
+            );
+          })}
           <Button
             onClick={() => startGame(data)}
             variant="danger"

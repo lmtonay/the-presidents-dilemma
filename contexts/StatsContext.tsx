@@ -1,6 +1,6 @@
 "use client";
 
-import { getStats } from "@/data/defaultStats";
+import { getStats } from "@/lib/getStats";
 import Stats from "@/schema/stats";
 import React, { createContext, useState, useEffect } from "react";
 

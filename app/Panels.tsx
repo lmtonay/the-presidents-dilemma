@@ -8,6 +8,8 @@ import {
 import Stats from "./(main)/Stats";
 import Actions from "./(main)/Actions";
 import NewGame from "./NewGame";
+import Header from "./(main)/Header";
+import NextButton from "./(main)/NextButton";
 
 interface PanelProps {
   children: React.ReactNode;
@@ -24,7 +26,11 @@ const Panel: React.FC<PanelProps> = ({ children }) => {
         </ResizablePanel>
         <ResizableHandle withHandle />
         <ResizablePanel defaultSize={50} minSize={20}>
-          <div className="h-screen overflow-auto scroll">{children}</div>
+          <div className="relative h-screen">
+            <Header />
+            <div className="h-screen overflow-auto scroll">{children}</div>
+            <NextButton />
+          </div>
         </ResizablePanel>
         <ResizableHandle withHandle />
         <ResizablePanel minSize={20}>

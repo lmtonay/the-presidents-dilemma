@@ -18,7 +18,7 @@ interface SupportsProps {
 const Supports: React.FC<SupportsProps> = ({ data }) => {
   return (
     <div className="my-1 p-2 rounded border-2 border-red-500">
-      <h4 className="text-lg text-red-500 font-bold">Support</h4>
+      <h4 className="text-lg text-red-500 font-bold">Supports</h4>
       <Separator />
       <Accordion type="single" collapsible className="w-full">
         {Object.entries(data).map(([key, value], i) => (

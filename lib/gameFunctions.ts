@@ -1,4 +1,4 @@
-import { getStats } from "@/data/defaultStats";
+import { getStats } from "@/lib/getStats";
 
 type InitialGameData = {
   difficulty: string;

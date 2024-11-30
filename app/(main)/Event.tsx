@@ -2,20 +2,21 @@
 
 import { cn, flatten, influenceFormat } from "@/lib/utils";
 
-/**
- * Reverses the order of words in a given string, where words are defined as sequences of characters
- * separated by uppercase letters. The resulting string is converted to uppercase.
- *
- * @param {string} str - The input string to be reversed.
- * @returns {string} - The reversed string with words separated by spaces and converted to uppercase.
- */
-const reverseString = (str: string) => {
+const reverseString = (str: string): string => {
   if (!str) return "";
-  return str
-    .split(/(?=[A-Z])/)
-    .reverse()
-    .join(" ")
-    .toUpperCase();
+
+  // Split the string into words using uppercase letters as boundaries
+  const words = str.split(/(?=[A-Z])/);
+
+  // If there are more than 3 words, reverse the first two words and append them at the end
+  if (words.length > 3) {
+    const firstTwoReversed = words.slice(0, 2).reverse();
+    const remainingWords = words.slice(2);
+    return [...remainingWords, ...firstTwoReversed].join(" ").toUpperCase();
+  }
+
+  // Otherwise, return the usual behavior (reverse all words and join with spaces)
+  return words.reverse().join(" ").toUpperCase();
 };
 
 interface EventProps {
