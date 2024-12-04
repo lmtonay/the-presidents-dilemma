@@ -28,81 +28,81 @@ export type CountryInfo = {
 };
 
 export type InternationalSupport = {
-  global: number;
-  eastern: number;
-  western: number;
-  middleEast: number;
-  unitedNations: number;
-  europeanUnion: number;
-  SAARC: number;
-  OIC: number;
-  ASEAN: number;
-  IMF: number;
+  global?: number;
+  eastern?: number;
+  western?: number;
+  middleEast?: number;
+  unitedNations?: number;
+  europeanUnion?: number;
+  SAARC?: number;
+  OIC?: number;
+  ASEAN?: number;
+  IMF?: number;
 };
 
 export type ParliamentSupport = {
-  communist: number;
-  democratic: number;
-  green: number;
-  islamist: number;
-  nationalist: number;
-  republican: number;
+  communist?: number;
+  democratic?: number;
+  green?: number;
+  islamist?: number;
+  nationalist?: number;
+  republican?: number;
 };
 
 export type JudiciarySupport = {
-  supremeCourt: number;
-  highCourt: number;
+  supremeCourt?: number;
+  highCourt?: number;
 };
 
 export type Support = {
-  citizens: {
-    conservative: number;
-    liberal: number;
+  citizens?: {
+    conservative?: number;
+    liberal?: number;
   };
-  military: {
-    army: number;
-    navy: number;
-    airForce: number;
+  military?: {
+    army?: number;
+    navy?: number;
+    airForce?: number;
   };
-  parliament: ParliamentSupport;
-  judiciary: JudiciarySupport;
-  international: InternationalSupport;
+  parliament?: ParliamentSupport;
+  judiciary?: JudiciarySupport;
+  international?: InternationalSupport;
 };
 
 export type Moral = {
-  humanRights: number;
-  environment: number;
-  security: number;
-  stability: number;
-  happiness: number;
-  crime: number;
-  education: number;
-  healthcare: number;
-  economy: number;
-  infrastructure: number;
-  technology: number;
-  religion: number;
-  approval: number;
-  corruption: number;
-  tourism: number;
-  culture: number;
+  humanRights?: number;
+  environment?: number;
+  security?: number;
+  stability?: number;
+  happiness?: number;
+  crime?: number;
+  education?: number;
+  healthcare?: number;
+  economy?: number;
+  infrastructure?: number;
+  technology?: number;
+  religion?: number;
+  approval?: number;
+  corruption?: number;
+  tourism?: number;
+  culture?: number;
 };
 
 export type Tax = {
-  incomeTax: number;
-  corporateTax: number;
-  salesTax: number;
-  propertyTax: number;
-  importTax: number;
-  exportTax: number;
+  incomeTax?: number;
+  corporateTax?: number;
+  salesTax?: number;
+  propertyTax?: number;
+  importTax?: number;
+  exportTax?: number;
 };
 
 export type Finance = {
-  treasury: number;
-  income: number;
-  expense: number;
-  debt: number;
-  tax: Tax;
+  treasury?: number;
+  income?: number;
+  expense?: number;
+  debt?: number;
+  tax?: Tax;
 };
 
 type Stats = {

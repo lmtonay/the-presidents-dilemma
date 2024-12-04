@@ -1,4 +1,4 @@
-import { simulateFirstTimeElection } from "@/data/parliamentData";
+import { generateFirstParliament } from "@/data/parliamentData";
 import { getStats } from "@/lib/getStats";
 import { Continent, PartyType } from "@/schema/stats";
 import { statsStore } from "@/store/stats-store";
@@ -37,8 +37,5 @@ export const startGame = async (data: InitialGameData) => {
   setStats(defaultStats);
 
   // Simulate the first-time election
-  // simulateFirstTimeElection(data.continent, data.partyType, data.partyName);
-
-  // Reload the page
-  console.log(defaultStats);
+  generateFirstParliament(data.continent, data.partyType, data.partyName);
 };

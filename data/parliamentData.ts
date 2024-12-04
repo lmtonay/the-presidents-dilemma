@@ -2,7 +2,7 @@ import PoliticalParty from "./politicalParties";
 import { getCitizensData } from "./citizensDb";
 import politicalParties from "./politicalParties";
 import { Continent, PartyType } from "@/schema/stats";
-import useStatsStore from "@/store/stats-store";
+import { statsStore } from "@/store/stats-store";
 
 export type MP = {
   id: string;
@@ -28,13 +28,11 @@ export type Parliament = {
   };
 };
 
-export const simulateFirstTimeElection = (
+export const generateFirstParliament = (
   continent: Continent,
   party: PartyType,
   partyName: string
 ) => {
-  // randomly pick 50 MPs, then fill the parliament type and store in localstorage
-
   const parliament: Parliament = {
     nth: 1,
     term: "2021-2025",
@@ -72,51 +70,52 @@ export const simulateFirstTimeElection = (
   const partyList = Object.values(PoliticalParty).flat();
 
   elects.forEach((e) => {
-    let randomParty: keyof typeof politicalParties;
-    let randomPartyName: string;
+    let memberRandomParty: keyof typeof politicalParties;
+    let memberRandomPartyName: string;
+
     if (Math.random() < 0.5) {
-      randomParty = party;
-      randomPartyName = partyName;
+      memberRandomParty = party;
+      memberRandomPartyName = partyName;
     } else {
-      randomParty = partyList[
+      memberRandomParty = partyList[
         Math.floor(Math.random() * partyList.length)
       ] as keyof typeof politicalParties;
-      randomPartyName =
-        politicalParties[randomParty][
-          Math.floor(Math.random() * politicalParties[randomParty].length)
-        ];
+
+      memberRandomPartyName = memberRandomParty;
     }
+
     parliament.members.push({
       id: e.id,
       name: e.name,
-      party: randomParty,
+      party: memberRandomParty,
       age: e.age,
-      partyName: randomPartyName,
+      partyName: memberRandomPartyName,
     });
   });
 
   parliament.members.sort((a, b) => a.party.localeCompare(b.party));
 
-  // pm must be from the party in parameter
-  const ownPartyMps = parliament.members.filter((m) => m.partyName === party);
+  const ownPartyMps = parliament.members.filter(
+    (m) => m.partyName === partyName
+  );
+
   parliament.pm = ownPartyMps[Math.floor(Math.random() * ownPartyMps.length)];
   parliament.speaker =
     ownPartyMps[Math.floor(Math.random() * ownPartyMps.length)];
 
-  // leading party must be the party in parameter
   parliament.leadingParty.name = partyName;
   parliament.leadingParty.type = party;
 
-  // randomly assign main opposition
   const parties = Object.keys(politicalParties);
-  const randomParty = parties[
+
+  const oppositionParty = parties[
     Math.floor(Math.random() * parties.length)
   ] as keyof typeof politicalParties;
   parliament.mainOpposition.name =
-    politicalParties[randomParty][
-      Math.floor(Math.random() * politicalParties[randomParty].length)
+    politicalParties[oppositionParty][
+      Math.floor(Math.random() * politicalParties[oppositionParty].length)
     ];
-  parliament.mainOpposition.type = randomParty;
+  parliament.mainOpposition.type = oppositionParty;
 
-  useStatsStore.getState().setParliament(parliament);
+  statsStore.getState().setParliament(parliament);
 };

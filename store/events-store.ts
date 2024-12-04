@@ -1,80 +1,66 @@
 "use client";
 
-import { getStats } from "@/lib/getStats";
-import { Parliament } from "@/data/parliamentData";
-import Stats from "@/schema/stats";
 import { createStore } from "zustand/vanilla";
 import { useStore } from "zustand";
 import Dexie from "dexie";
+import { Events } from "@/schema/events";
+import { dummyEvents } from "@/data/dummyEvents";
 
 class AppDatabase extends Dexie {
-  stats!: Dexie.Table<Stats, number>;
-  parliament!: Dexie.Table<Parliament, number>;
+  events!: Dexie.Table<Events[], number>;
 
   constructor() {
     super("AppDatabase");
     this.version(1).stores({
-      stats: "++id",
-      parliament: "++id",
+      events: "++id",
     });
   }
 }
 
 const db = typeof window !== "undefined" ? new AppDatabase() : null;
 
-const defaultStats = getStats("normal");
-
-interface StatsStore {
-  stats: Stats;
-  parliament: Parliament;
-  setStats: (stats: Stats) => Promise<void>;
-  setParliament: (parliament: Parliament) => Promise<void>;
+interface EventsStore {
+  events: Events[];
+  setEvents: (events: Events[]) => Promise<void>;
   loadFromDexie: () => Promise<void>;
   restartGame: () => void;
 }
 
-const useStatsStore = createStore<StatsStore>((set) => ({
-  stats: defaultStats,
-  parliament: {} as Parliament,
-
-  setStats: async (stats: Stats) => {
-    set({ stats });
+const useEventsStore = createStore<EventsStore>((set) => ({
+  events: dummyEvents,
+  setEvents: async (events: Events[]) => {
+    set({ events });
     if (db) {
-      await db.stats.clear();
-      await db.stats.add(stats);
-    }
-  },
-  setParliament: async (parliament: Parliament) => {
-    set({ parliament });
-    if (db) {
-      await db.parliament.clear();
-      await db.parliament.add(parliament);
+      await db.events.clear();
+      await db.events.add(events);
     }
   },
 
   loadFromDexie: async () => {
     if (db) {
-      const stats = (await db.stats.toArray())[0] || defaultStats;
-      const parliament = (await db.parliament.toArray())[0] || {};
-      set({ stats, parliament });
+      const events = (await db.events.toArray())[0];
+      if (events) {
+        set({ events });
+      } else {
+        set({ events: dummyEvents });
+      }
     } else {
-      set({ stats: defaultStats, parliament: {} as Parliament });
+      set({ events: dummyEvents });
     }
   },
 
   restartGame: () => {
-    set({ stats: defaultStats, parliament: {} as Parliament });
+    set({ events: dummyEvents });
     if (db) {
-      db.stats.clear();
-      db.parliament.clear();
+      db.events.clear();
     }
   },
 }));
 
-const useStats = () => useStore(useStatsStore);
+const useEvents = () => useStore(useEventsStore);
 
-await useStatsStore.getState().loadFromDexie();
+await useEventsStore.getState().loadFromDexie();
 
-export default useStats;
-export const statsStore = useStatsStore;
+export default useEvents;
+export const eventsStore = useEventsStore;
 export { db };

@@ -3,6 +3,7 @@
 import InputField from "@/components/InputField";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import { Parliament } from "@/data/parliamentData";
 import { startGame } from "@/lib/gameFunctions";
 import { capitalize } from "@/lib/utils";
 import { Continent, PartyType } from "@/schema/stats";
@@ -124,7 +125,7 @@ const NewGame: React.FC = () => {
       label: "Party Type",
       default: stats?.presidentInfo?.party,
       isDropdown: true,
-      options: Object.keys(stats?.support?.parliament).map((s) => {
+      options: Object.keys(stats?.support?.parliament as Parliament).map((s) => {
         return {
           label: capitalize(s),
           value: s,

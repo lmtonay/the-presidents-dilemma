@@ -42,6 +42,7 @@ import {
 } from "react-icons/fa";
 import { PiSpinnerFill } from "react-icons/pi";
 import { MdFiberNew } from "react-icons/md";
+import { eventsStore } from "@/store/events-store";
 
 export type ActionButton = {
   name: string;
@@ -67,6 +68,7 @@ const actionButtons: ActionButtons = {
       icon: MdFiberNew,
       onClick: () => {
         statsStore.getState().restartGame();
+        eventsStore.getState().restartGame();
       },
     },
   ],

@@ -1,12 +1,11 @@
 "use client";
 
-import { EventsContext } from "@/contexts/EventsContext";
-import { useContext } from "react";
 import { Separator } from "@/components/ui/separator";
 import Event from "./Event";
+import useEvents from "@/store/events-store";
 
 const Events: React.FC = () => {
-  const { events } = useContext(EventsContext);
+  const { events } = useEvents();
 
   return (
     <div className="p-3">

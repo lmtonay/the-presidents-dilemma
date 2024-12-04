@@ -1,4 +1,6 @@
-export const dummyEvents = [
+import { Events } from "@/schema/events";
+
+export const dummyEvents : Events[] = [
   {
     date: "2021-08-01",
     day: "1",
@@ -52,7 +54,10 @@ export const dummyEvents = [
               SAARC: 5,
               OIC: 5,
             },
-            parliament: 5,
+            parliament: {
+              democratic: 5,
+              republican: 5,
+            },
           },
           morals: {
             security: 5,
@@ -118,7 +123,10 @@ export const dummyEvents = [
               SAARC: 5,
               OIC: 5,
             },
-            parliament: 5,
+            parliament: {
+              democratic: 5,
+              republican: 5,
+            },
           },
           morals: {
             economy: 10,
