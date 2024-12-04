@@ -19,7 +19,7 @@ const Panel: React.FC<PanelProps> = ({ children }) => {
   return (
     <main className="relative">
       <ResizablePanelGroup direction="horizontal">
-        <ResizablePanel minSize={20}>
+        <ResizablePanel minSize={20} defaultSize={25}>
           <div className="h-screen overflow-auto scroll">
             <Stats />
           </div>
@@ -33,7 +33,7 @@ const Panel: React.FC<PanelProps> = ({ children }) => {
           </div>
         </ResizablePanel>
         <ResizableHandle withHandle />
-        <ResizablePanel minSize={20}>
+        <ResizablePanel minSize={20} defaultSize={25}>
           <div className="h-screen overflow-auto scroll">
             <Actions />
           </div>

@@ -1,3 +1,5 @@
+"use client";
+
 import Stats from "./stats";
 
 export type Events = {

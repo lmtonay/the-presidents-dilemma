@@ -1,3 +1,5 @@
+"use client";
+
 import countriesWithDetails from "@/data/countriesWithDetails";
 import defaultStats from "@/data/defaultStats";
 import politicalParties, { PoliticalParty } from "@/data/politicalParties";
@@ -73,6 +75,9 @@ export const getStats = (
     ? partyName
     : `${country || randomCountry} ${randomPartyName}`;
 
+  if (!statsToReturn.support.parliament) {
+    statsToReturn.support.parliament = {} as ParliamentSupport;
+  }
   statsToReturn.support.parliament[
     (partyType as keyof ParliamentSupport) || (randomPartyType as keyof ParliamentSupport)
   ] = 90;

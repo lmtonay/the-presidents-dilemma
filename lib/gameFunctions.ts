@@ -1,3 +1,5 @@
+"use client";
+
 import { generateFirstParliament } from "@/data/parliamentData";
 import { getStats } from "@/lib/getStats";
 import { Continent, PartyType } from "@/schema/stats";

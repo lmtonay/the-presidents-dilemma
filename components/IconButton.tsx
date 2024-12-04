@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { IconType } from "react-icons";
 import { Button } from "./ui/button";
