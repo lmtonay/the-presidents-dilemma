@@ -2,7 +2,7 @@ import countriesWithDetails from "@/data/countriesWithDetails";
 import defaultStats from "@/data/defaultStats";
 import politicalParties, { PoliticalParty } from "@/data/politicalParties";
 import Stats from "@/schema/stats";
-import { Parliament } from "@/schema/stats";
+import { ParliamentSupport } from "@/schema/stats";
 
 export const getStats = (
   difficulty: string,
@@ -74,7 +74,7 @@ export const getStats = (
     : `${country || randomCountry} ${randomPartyName}`;
 
   statsToReturn.support.parliament[
-    (partyType as keyof Parliament) || (randomPartyType as keyof Parliament)
+    (partyType as keyof ParliamentSupport) || (randomPartyType as keyof ParliamentSupport)
   ] = 90;
 
   statsToReturn.presidentInfo.age =

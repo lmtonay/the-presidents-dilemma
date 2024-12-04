@@ -7,6 +7,9 @@ export type PresidentInfo = {
   age: number;
 };
 
+export type Continent = "Asia" | "Europe" | "South America" | "Africa" | "North America" | "Oceania";
+export type PartyType = "nationalist" | "islamist" | "democratic" | "green" | "republican" | "communist";
+
 export type GameData = {
   date: string;
   day: number;
@@ -37,7 +40,7 @@ export type InternationalSupport = {
   IMF: number;
 };
 
-export type Parliament = {
+export type ParliamentSupport = {
   communist: number;
   democratic: number;
   green: number;
@@ -46,7 +49,7 @@ export type Parliament = {
   republican: number;
 };
 
-export type Judiciary = {
+export type JudiciarySupport = {
   supremeCourt: number;
   highCourt: number;
 };
@@ -61,8 +64,8 @@ export type Support = {
     navy: number;
     airForce: number;
   };
-  parliament: Parliament;
-  judiciary: Judiciary;
+  parliament: ParliamentSupport;
+  judiciary: JudiciarySupport;
   international: InternationalSupport;
 };
 

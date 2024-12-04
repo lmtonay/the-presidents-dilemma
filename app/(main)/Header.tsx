@@ -1,11 +1,11 @@
 "use client";
 
-import { StatsContext } from "@/contexts/StatsContext";
 import { n2MB } from "@/lib/utils";
+import useStats from "@/store/stats-store";
 import { useContext } from "react";
 
 const Header: React.FC = () => {
-  const { stats } = useContext(StatsContext);
+  const { stats } = useStats();
 
   return (
     <div className="sticky top-0 w-full">

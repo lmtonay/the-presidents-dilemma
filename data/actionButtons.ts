@@ -1,5 +1,7 @@
 "use client";
 
+
+import { statsStore } from "@/store/stats-store";
 import { IconType } from "react-icons";
 import {
   FaMoneyBillWave,
@@ -64,8 +66,7 @@ const actionButtons: ActionButtons = {
       name: "New Game",
       icon: MdFiberNew,
       onClick: () => {
-        localStorage.clear();
-        window.location.reload();
+        statsStore.getState().restartGame();
       },
     },
   ],
@@ -73,7 +74,7 @@ const actionButtons: ActionButtons = {
     {
       name: "Parliament",
       icon: FaLandmark,
-      route: '/parliament',
+      route: "/parliament",
     },
     {
       name: "Secretariat",

@@ -1,14 +1,14 @@
 "use client";
 
-import { StatsContext } from "@/contexts/StatsContext";
 import React, { useContext } from "react";
 import BasicInfo from "./BasicInfo";
 import Supports from "./Supports";
 import Morals from "./Morals";
 import Finances from "./Finances";
+import useStats from "@/store/stats-store";
 
 const Stats: React.FC = () => {
-  const { stats } = useContext(StatsContext);
+  const { stats } = useStats();
 
   return (
     <div className="p-3">

@@ -2,8 +2,6 @@ import type { Metadata } from "next";
 import { Cinzel, Inter, Noto_Color_Emoji, Tiro_Bangla } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
-import { StatsProvider } from "@/contexts/StatsContext";
-import { EventsProvider } from "@/contexts/EventsContext";
 import Panel from "./Panels";
 
 const cinzel = Cinzel({
@@ -42,8 +40,6 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <EventsProvider>
-      <StatsProvider>
         <html>
           <body
             className={cn(
@@ -57,7 +53,5 @@ export default function RootLayout({
             <Panel>{children}</Panel>
           </body>
         </html>
-      </StatsProvider>
-    </EventsProvider>
   );
 }

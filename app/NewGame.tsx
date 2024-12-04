@@ -3,10 +3,10 @@
 import InputField from "@/components/InputField";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { StatsContext } from "@/contexts/StatsContext";
 import { startGame } from "@/lib/gameFunctions";
 import { capitalize } from "@/lib/utils";
-import React, { useContext } from "react";
+import { Continent, PartyType } from "@/schema/stats";
+import useStats from "@/store/stats-store";
 
 type Field = {
   label: string;
@@ -19,30 +19,30 @@ type Field = {
 
 type Data = {
   difficulty: string;
-  continent: string;
+  continent: Continent;
   countryName: string;
   capitalCity: string;
   presidentName: string;
   presidentAge: number;
   currency: string;
   language: string;
-  partyType: string;
+  partyType: PartyType;
   partyName: string;
 };
 
 const NewGame: React.FC = () => {
-  const { stats } = useContext(StatsContext);
+  const { stats } = useStats();
 
   const data: Data = {
     difficulty: stats?.gameData?.difficulty || "",
-    continent: stats?.countryInfo?.continent || "",
+    continent: stats?.countryInfo?.continent as Continent,
     countryName: stats?.countryInfo?.name || "",
     capitalCity: stats?.countryInfo?.capital || "",
     presidentName: stats?.presidentInfo?.name || "",
     presidentAge: stats?.presidentInfo?.age || 0,
     currency: stats?.countryInfo?.currency || "",
     language: stats?.countryInfo?.language || "",
-    partyType: stats?.presidentInfo?.party || "",
+    partyType: stats?.presidentInfo?.party  as PartyType,
     partyName: stats?.presidentInfo?.partyName || "",
   };
 
@@ -176,7 +176,7 @@ const NewGame: React.FC = () => {
               <InputField
                 key={index}
                 label={
-                  field.isDropdown ? field.label + " Default selected: " + field.default : field.label
+                  field.isDropdown ? field.label + " (Default selected: " + field.default + ")" : field.label
                 }
                 defaultValue={field.default}
                 isDropdown={field.isDropdown}
