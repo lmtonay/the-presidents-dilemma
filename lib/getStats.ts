@@ -1,10 +1,13 @@
 "use client";
 
+import { getAName } from "@/data/citizensDb";
 import countriesWithDetails from "@/data/countriesWithDetails";
 import defaultStats from "@/data/defaultStats";
 import politicalParties, { PoliticalParty } from "@/data/politicalParties";
-import Stats from "@/schema/stats";
+import Stats, { Continent } from "@/schema/stats";
 import { ParliamentSupport } from "@/schema/stats";
+import { randArrEl, randInt } from "./utils";
+import { INITIAL_OWN_PARTY_SUPPORT, PRESIDENT_AGE_RANGE } from "@/data/constants";
 
 export const getStats = (
   difficulty: string,
@@ -15,7 +18,7 @@ export const getStats = (
     capital?: string;
     presidentAge?: number;
     partyType?: string;
-    continent?: string;
+    continent?: Continent;
     language?: string;
     currency?: string;
   }
@@ -50,25 +53,21 @@ export const getStats = (
 
   // pick a random country, president and capital and assign them to the stats
   const countryKeys = Object.keys(countriesWithDetails);
-  const randomCountry =
-    countryKeys[Math.floor(Math.random() * countryKeys.length)];
+  const randomCountry = randArrEl(countryKeys);
   const randomCountryData = countriesWithDetails[randomCountry];
   statsToReturn.countryInfo.name = country || randomCountry;
   statsToReturn.countryInfo.capital = capital || randomCountryData.capital;
-  statsToReturn.presidentInfo.name = president || randomCountryData.president;
+  // statsToReturn.presidentInfo.name = president || randomCountryData.president;
   statsToReturn.countryInfo.continent =
     continent || randomCountryData.continent;
   statsToReturn.countryInfo.language = language || randomCountryData.language;
   statsToReturn.countryInfo.currency = currency || randomCountryData.currency;
+  statsToReturn.presidentInfo.name =
+    president || getAName(statsToReturn.countryInfo.continent as Continent);
 
   const partyKeys = Object.keys(politicalParties);
-  const randomPartyType = partyKeys[
-    Math.floor(Math.random() * partyKeys.length)
-  ] as keyof PoliticalParty;
-  const randomPartyName =
-    politicalParties[randomPartyType][
-      Math.floor(Math.random() * politicalParties[randomPartyType].length)
-    ];
+  const randomPartyType = randArrEl(partyKeys) as keyof PoliticalParty;
+  const randomPartyName = randArrEl(politicalParties[randomPartyType]);
 
   statsToReturn.presidentInfo.party = partyType || randomPartyType;
   statsToReturn.presidentInfo.partyName = partyName
@@ -79,11 +78,12 @@ export const getStats = (
     statsToReturn.support.parliament = {} as ParliamentSupport;
   }
   statsToReturn.support.parliament[
-    (partyType as keyof ParliamentSupport) || (randomPartyType as keyof ParliamentSupport)
-  ] = 90;
+    (partyType as keyof ParliamentSupport) ||
+      (randomPartyType as keyof ParliamentSupport)
+  ] = INITIAL_OWN_PARTY_SUPPORT;
 
   statsToReturn.presidentInfo.age =
-    presidentAge || Math.floor(Math.random() * 45) + 35;
+    presidentAge || randInt({ arr: PRESIDENT_AGE_RANGE });
 
   return statsToReturn;
 };

@@ -1,6 +1,6 @@
 "use client";
 
-import { n2MB } from "@/lib/utils";
+import { numberToSuffix } from "@/lib/utils";
 import useStats from "@/store/stats-store";
 import { useContext } from "react";
 
@@ -32,7 +32,7 @@ const Header: React.FC = () => {
         <div className="flex justify-between">
           <div>
             <h5 className="text-md font-bold">Day {stats?.gameData?.day} - {stats?.gameData?.date}</h5>
-            <h5 className="text-md font-bold">Balance: ৳{n2MB(stats?.presidentInfo?.money)}</h5>
+            <h5 className="text-md font-bold">Balance: ৳{numberToSuffix(stats?.presidentInfo?.money)}</h5>
           </div>
           <div className="text-end">
             <h5 className="text-md font-bold">President {stats?.presidentInfo?.name}</h5>

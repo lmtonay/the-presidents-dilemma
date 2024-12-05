@@ -177,8 +177,11 @@ const NewGame: React.FC = () => {
           ready? Let&apos;s start!
         </p>
         <Separator className="my-2" />
-        <p>
-          <b>Or,</b> customize your experience
+        <p className="flex justify-between items-center">
+          <span><b>Or,</b> customize your experience</span>
+          <Button variant="outlineDanger" onClick={() => window.location.reload()}>
+            Randomise
+          </Button>
         </p>
         <div>
           {fields.map((field, index) => {

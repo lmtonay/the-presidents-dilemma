@@ -24,14 +24,14 @@ const IconButton: React.FC<IconButtonProps> = ({
   return (
     <Button
       className={cn(
-        "rounded flex flex-col items-center justify-center h-20",
+        "rounded flex flex-col items-center justify-center min-h-20",
         className
       )}
       variant={variant}
       {...props}
     >
       <Icon className="scale-150" />
-      <h5 className="mb-[-8px]">{children}</h5>
+      <h5 className="mb-[-8px] text-wrap">{children}</h5>
     </Button>
   );
 };

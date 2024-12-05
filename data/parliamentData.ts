@@ -1,4 +1,6 @@
+import { randArrEl } from "@/lib/utils";
 import { getCitizensData } from "./citizensDb";
+import { PARLIAMENT_AGE_RANGE, PARLIAMENT_MEMBERS } from "./constants";
 import politicalParties from "./politicalParties";
 import { Continent, parties, PartyType } from "@/schema/stats";
 import { statsStore } from "@/store/stats-store";
@@ -62,22 +64,22 @@ export const generateFirstParliament = (
   };
 
   const elects = getCitizensData({
-    count: 50,
+    count: PARLIAMENT_MEMBERS,
     region: continent,
-    ageRange: [30, 70],
+    ageRange: PARLIAMENT_AGE_RANGE as [number, number],
   });
 
   elects.forEach((e) => {
     let memberRandomParty: PartyType;
     let memberRandomPartyName: string;
 
-    if (Math.random() < 0.5) {
+    if (Math.random() < 0.4) {
       memberRandomParty = party;
       memberRandomPartyName = partyName;
     } else {
-      const randomPartyKey = parties[Math.floor(Math.random() * parties.length)] as keyof typeof politicalParties;
+      const randomPartyKey = randArrEl(parties) as keyof typeof politicalParties;
       memberRandomParty = randomPartyKey;
-      memberRandomPartyName = country + " " + politicalParties[randomPartyKey][Math.floor(Math.random() * politicalParties[randomPartyKey].length)];
+      memberRandomPartyName = country + " " + randArrEl(politicalParties[randomPartyKey]);
     }
 
     parliament.members.push({
@@ -95,21 +97,32 @@ export const generateFirstParliament = (
     (m) => m.partyName === partyName
   );
 
-  parliament.pm = ownPartyMps[Math.floor(Math.random() * ownPartyMps.length)];
+  parliament.pm = randArrEl(ownPartyMps);
   parliament.speaker =
-    ownPartyMps[Math.floor(Math.random() * ownPartyMps.length)];
+    randArrEl(ownPartyMps.filter((m) => m.id !== parliament.pm.id)) || parliament.pm;
 
   parliament.leadingParty.name = partyName;
   parliament.leadingParty.type = party;
 
-  const oppositionParty = parties[
-    Math.floor(Math.random() * parties.length)
-  ] as keyof typeof politicalParties;
-  parliament.mainOpposition.name =
-    politicalParties[oppositionParty][
-      Math.floor(Math.random() * politicalParties[oppositionParty].length)
-    ];
-  parliament.mainOpposition.type = oppositionParty;
+  const partyCounts: { [key: string]: number } = {};
+
+  parliament.members.forEach((member) => {
+    if (!partyCounts[member.partyName]) {
+      partyCounts[member.partyName] = 1;
+    }
+    partyCounts[member.partyName]++;
+  });
+
+  const sortedParties = Object.keys(partyCounts).sort(
+    (a, b) => partyCounts[b] - partyCounts[a]
+  );
+
+  const oppositionParty = sortedParties[1] as keyof typeof politicalParties;
+
+  parliament.mainOpposition.name = oppositionParty;
+  parliament.mainOpposition.type = parliament.members.find(
+    (m) => m.partyName === oppositionParty
+  )?.party || "";
 
   statsStore.getState().setParliament(parliament);
 };

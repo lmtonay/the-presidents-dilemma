@@ -10,14 +10,14 @@ const NextButton: React.FC = () => {
   const isHomePage = pathname === "/";
 
   return (
-    <div className="sticky bottom-5 flex justify-center">
+    <div className="sticky bottom-0 w-full bg-red-500 text-white overflow-hidden rounded-t">
       {isHomePage ? (
-        <Button variant="danger" className="text-lg p-5 px-10">
+        <Button variant="ghost" className="text-lg w-full text-white">
           Next week
         </Button>
       ) : (
         <Link href="/">
-          <Button variant="danger" className="text-lg p-5 px-10">
+          <Button variant="ghost" className="text-lg w-full text-white">
             Go to Main Page
           </Button>
         </Link>

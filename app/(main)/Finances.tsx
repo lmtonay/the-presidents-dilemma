@@ -9,7 +9,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { n2MB } from "@/lib/utils";
+import { numberToSuffix } from "@/lib/utils";
 
 interface FinanceProps {
   data: Finance;
@@ -30,7 +30,7 @@ const Finances: React.FC<FinanceProps> = ({ data }) => {
               >
                 <h5 className="text-sm">{key.charAt(0).toUpperCase() + key.slice(1)}</h5>
                 <small>
-                  ৳{n2MB(typeof value === "number" ? value : Number(value))}
+                  ৳{numberToSuffix(typeof value === "number" ? value : Number(value))}
                 </small>
               </div>
             )
