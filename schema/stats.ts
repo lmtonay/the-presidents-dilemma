@@ -11,6 +11,7 @@ export type PresidentInfo = {
 
 export type Continent = "Asia" | "Europe" | "South America" | "Africa" | "North America" | "Oceania";
 export type PartyType = "nationalist" | "islamist" | "democratic" | "green" | "republican" | "communist";
+export const parties : PartyType[] = ["nationalist", "islamist", "democratic", "green", "republican"];
 
 export type GameData = {
   date: string;

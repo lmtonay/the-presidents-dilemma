@@ -69,6 +69,7 @@ const actionButtons: ActionButtons = {
       onClick: () => {
         statsStore.getState().restartGame();
         eventsStore.getState().restartGame();
+        window.location.reload();
       },
     },
   ],

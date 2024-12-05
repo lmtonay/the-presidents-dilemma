@@ -8,6 +8,7 @@ import { startGame } from "@/lib/gameFunctions";
 import { capitalize } from "@/lib/utils";
 import { Continent, PartyType } from "@/schema/stats";
 import useStats from "@/store/stats-store";
+import { useEffect, useState } from "react";
 
 type Field = {
   label: string;
@@ -43,7 +44,7 @@ const NewGame: React.FC = () => {
     presidentAge: stats?.presidentInfo?.age || 0,
     currency: stats?.countryInfo?.currency || "",
     language: stats?.countryInfo?.language || "",
-    partyType: stats?.presidentInfo?.party  as PartyType,
+    partyType: stats?.presidentInfo?.party as PartyType,
     partyName: stats?.presidentInfo?.partyName || "",
   };
 
@@ -125,12 +126,14 @@ const NewGame: React.FC = () => {
       label: "Party Type",
       default: stats?.presidentInfo?.party,
       isDropdown: true,
-      options: Object.keys(stats?.support?.parliament as Parliament).map((s) => {
-        return {
-          label: capitalize(s),
-          value: s,
-        };
-      }),
+      options: Object.keys(stats?.support?.parliament as Parliament).map(
+        (s) => {
+          return {
+            label: capitalize(s),
+            value: s,
+          };
+        }
+      ),
       key: "partyType",
     },
     {
@@ -154,7 +157,13 @@ const NewGame: React.FC = () => {
     data[key] = value;
   };
 
-  return stats?.gameData?.new ? (
+  const [initialized, setInitialized] = useState(false);
+
+  useEffect(() => {
+    setInitialized(true);
+  }, []);
+
+  return (initialized && stats?.gameData?.new) ? (
     <div className="fixed inset-0 flex items-center justify-center bg-opacity-90 backdrop-blur z-10">
       <div className="bg-white w-[50vw] rounded p-4 h-[80vh] overflow-auto">
         <h3 className="text-2xl font-bold">
@@ -177,14 +186,19 @@ const NewGame: React.FC = () => {
               <InputField
                 key={index}
                 label={
-                  field.isDropdown ? field.label + " (Default selected: " + field.default + ")" : field.label
+                  field.isDropdown
+                    ? field.label + " (Default selected: " + field.default + ")"
+                    : field.label
                 }
                 defaultValue={field.default}
                 isDropdown={field.isDropdown}
                 options={field.options}
                 type={field.type}
                 onChange={(e) =>
-                  updateData(field.key, field.type === "number" ? +e.target.value : e.target.value)
+                  updateData(
+                    field.key,
+                    field.type === "number" ? +e.target.value : e.target.value
+                  )
                 }
                 onValueChange={(value) => updateData(field.key, value)}
                 placeholder={field.label}

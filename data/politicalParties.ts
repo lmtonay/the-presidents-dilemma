@@ -1,10 +1,7 @@
+import { PartyType } from "@/schema/stats";
+
 export type PoliticalParty = {
-  nationalist: string[];
-  islamist: string[];
-  democratic: string[];
-  communist: string[];
-  green: string[];
-  republican: string[];
+  [key in PartyType]: string[];
 };
 
 const politicalParties: PoliticalParty = {

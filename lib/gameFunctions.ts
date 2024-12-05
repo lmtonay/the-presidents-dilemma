@@ -39,5 +39,5 @@ export const startGame = async (data: InitialGameData) => {
   setStats(defaultStats);
 
   // Simulate the first-time election
-  generateFirstParliament(data.continent, data.partyType, data.partyName);
+  generateFirstParliament(data.continent, data.partyType, data.partyName, data.countryName);
 };

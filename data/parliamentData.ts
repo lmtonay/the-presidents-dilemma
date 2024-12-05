@@ -1,7 +1,6 @@
-import PoliticalParty from "./politicalParties";
 import { getCitizensData } from "./citizensDb";
 import politicalParties from "./politicalParties";
-import { Continent, PartyType } from "@/schema/stats";
+import { Continent, parties, PartyType } from "@/schema/stats";
 import { statsStore } from "@/store/stats-store";
 
 export type MP = {
@@ -31,7 +30,8 @@ export type Parliament = {
 export const generateFirstParliament = (
   continent: Continent,
   party: PartyType,
-  partyName: string
+  partyName: string,
+  country: string
 ) => {
   const parliament: Parliament = {
     nth: 1,
@@ -67,21 +67,17 @@ export const generateFirstParliament = (
     ageRange: [30, 70],
   });
 
-  const partyList = Object.values(PoliticalParty).flat();
-
   elects.forEach((e) => {
-    let memberRandomParty: keyof typeof politicalParties;
+    let memberRandomParty: PartyType;
     let memberRandomPartyName: string;
 
     if (Math.random() < 0.5) {
       memberRandomParty = party;
       memberRandomPartyName = partyName;
     } else {
-      memberRandomParty = partyList[
-        Math.floor(Math.random() * partyList.length)
-      ] as keyof typeof politicalParties;
-
-      memberRandomPartyName = memberRandomParty;
+      const randomPartyKey = parties[Math.floor(Math.random() * parties.length)] as keyof typeof politicalParties;
+      memberRandomParty = randomPartyKey;
+      memberRandomPartyName = country + " " + politicalParties[randomPartyKey][Math.floor(Math.random() * politicalParties[randomPartyKey].length)];
     }
 
     parliament.members.push({
@@ -105,8 +101,6 @@ export const generateFirstParliament = (
 
   parliament.leadingParty.name = partyName;
   parliament.leadingParty.type = party;
-
-  const parties = Object.keys(politicalParties);
 
   const oppositionParty = parties[
     Math.floor(Math.random() * parties.length)

@@ -1,12 +1,16 @@
 "use client";
 
+import useStats from "@/store/stats-store";
 import React from "react";
 
 const ParliamentPage: React.FC = () => {
+  const { parliament, stats } = useStats();
+
   return (
-    <div>
-      <h1>Parliament Page</h1>
-      <p>Welcome to the Parliament page of The President's Dilemma.</p>
+    <div className="p-3">
+      <h1 className="text-2xl font-bold text-center">
+        The Parliament of {stats?.countryInfo?.name}
+      </h1>
     </div>
   );
 };

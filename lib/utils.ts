@@ -35,7 +35,7 @@ export const flatten = (
 
 export function influenceFormat(key: string, value: number) {
   if (key.toLowerCase().includes("finance")) {
-    return `৳${value > 0 ? "+" : ""}${value}`;
+    return `${value > 0 ? "+৳" : "-৳"}${Math.abs(value)}`;
   }
   return `${value > 0 ? "+" : ""}${value}`;
 }
