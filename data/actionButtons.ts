@@ -1,6 +1,5 @@
 "use client";
 
-
 import { statsStore } from "@/store/stats-store";
 import { IconType } from "react-icons";
 import {
@@ -43,11 +42,14 @@ import {
 import { PiSpinnerFill } from "react-icons/pi";
 import { MdFiberNew } from "react-icons/md";
 import { eventsStore } from "@/store/events-store";
+import { Event } from "@/schema/events";
+import { executeAction } from "@/lib/gameFunctions";
 
 export type ActionButton = {
   name: string;
   icon: IconType;
-  onClick?: () => void;
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
+  onClick?: Function;
   route?: string;
 };
 
@@ -60,6 +62,8 @@ export type ActionButtons = {
   "chaos and misc": ActionButton[];
   "game actions": ActionButton[];
 };
+
+const stats = statsStore.getState().stats;
 
 const actionButtons: ActionButtons = {
   "game actions": [
@@ -166,7 +170,63 @@ const actionButtons: ActionButtons = {
     {
       name: "Declare Emergency",
       icon: FaExclamationTriangle,
-      onClick: () => {},
+      onClick: (reason = "internal issues") => {
+        const event: Event = {
+          action: "Declare Emergency",
+          title: "National Emergency",
+          description: `You have declared a national emergency due to ${reason}. The military has been deployed to maintain law and order. The parliament and constitution have been suspended.`,
+          type: "emergency",
+          influence: {
+            support: {
+              military: {
+                army: 10,
+                navy: 8,
+                airForce: 7,
+              },
+              citizens: {
+                liberal: -8,
+              },
+              parliament: {
+                democratic: -10,
+                republican: -8,
+                nationalist: -5,
+                communist: -3,
+                green: -3,
+                islamist: 1,
+              },
+              judiciary: {
+                supremeCourt: -10,
+                highCourt: -8,
+              },
+              international: {
+                global: -5,
+                eastern: -6,
+                western: -10,
+                middleEast: -3,
+                unitedNations: -3,
+              },
+            },
+            countryInfo: {
+              emergency: {
+                active: true,
+                reason: reason,
+                from: stats.gameData.date,
+              },
+            },
+            morale: {
+              humanRights: -10,
+              security: 10,
+              stability: 5,
+              approval: -7,
+              crime: -3,
+              happiness: -5,
+              tourism: -10,
+            },
+          },
+        };
+
+        executeAction(event);
+      },
     },
     {
       name: "Spy Network",

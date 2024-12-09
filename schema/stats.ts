@@ -28,6 +28,11 @@ export type CountryInfo = {
   currency: string;
   continent: string;
   language: string;
+  emergency?: {
+    active: boolean;
+    reason: string;
+    from: string;
+  }
 };
 
 export type InternationalSupport = {
@@ -72,7 +77,7 @@ export type Support = {
   international?: InternationalSupport;
 };
 
-export type Moral = {
+export type Morale = {
   humanRights?: number;
   environment?: number;
   security?: number;
@@ -113,7 +118,7 @@ type Stats = {
   gameData: GameData;
   countryInfo: CountryInfo;
   support: Support;
-  moral: Moral;
+  morale: Morale;
   finance: Finance;
 };
 

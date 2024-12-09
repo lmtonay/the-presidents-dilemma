@@ -4,11 +4,11 @@ import Stats from "./stats";
 
 export type Events = {
   date: string;
-  day: string;
+  day: number;
   events: Event[];
 };
 
-type Event = {
+export type Event = {
   action: string;
   title: string;
   description: string;
@@ -16,11 +16,6 @@ type Event = {
   type: string;
 };
 
-type EventInfluence = {
-  support?: Stats['support'];
-  morals?: Stats['moral'];
-  finance?: Stats['finance'];
-  parliament?: Stats['support']['parliament'];
-  judiciary?: Stats['support']['judiciary'];
-  international?: Stats['support']['international'];
+export type EventInfluence = {
+  [key in keyof Partial<Stats>]?: Partial<Stats[key]>;
 };

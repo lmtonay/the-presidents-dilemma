@@ -2,7 +2,6 @@
 
 import { numberToSuffix } from "@/lib/utils";
 import useStats from "@/store/stats-store";
-import { useContext } from "react";
 
 const Header: React.FC = () => {
   const { stats } = useStats();

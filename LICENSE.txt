@@ -1,0 +1,21 @@
+The President's Dilemma - Web Game License Agreement
+
+Copyright (c) 2024, Labib Mahfuz Tonay
+
+1. License
+You are granted a non-exclusive, non-transferable license to use "The President's Dilemma" for personal, non-commercial purposes only. You may not use the game for any commercial purposes without explicit permission from the creator.
+
+2. Attribution
+You must provide appropriate credit to the original creator (Labib Mahfuz Tonay) whenever you use, share, or distribute the game. This credit should be clearly displayed within the game interface or in a credits section if applicable.
+
+3. Modification
+You are not allowed to modify, adapt, or create derivative works of the game, nor distribute any modified versions of it.
+
+4. No Warranty
+The game is provided "as-is", without any warranty or liability of any kind. The creator is not responsible for any damages, data loss, or other issues that may arise from using the game.
+
+5. Contact Information
+For any inquiries or further information, please contact the creator at lm.tonay1@gmail.com.
+
+6. Restrictions
+There are no additional restrictions on usage. Users may freely share and play the game, provided they adhere to the conditions stated above.

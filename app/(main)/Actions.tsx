@@ -19,10 +19,15 @@ const Actions: React.FC = () => {
             <div className="grid grid-cols-2 gap-1">
               {actionButtons[key as keyof ActionButtons].map(
                 (action, index) => {
-                  const Icon = action.icon;
-                  return action.route ? (
+                  const Icon = action?.icon;
+                  return action?.route ? (
                     <Link key={index} href={action.route}>
-                      <IconButton className="w-full" variant="danger" key={index} icon={Icon}>
+                      <IconButton
+                        className="w-full"
+                        variant="danger"
+                        key={index}
+                        icon={Icon}
+                      >
                         {action.name}
                       </IconButton>
                     </Link>
@@ -31,7 +36,11 @@ const Actions: React.FC = () => {
                       variant="danger"
                       key={index}
                       icon={Icon}
-                      onClick={action.onClick}
+                      onClick={
+                        action?.onClick
+                          ? () => action?.onClick()
+                          : () => console.log("No action assigned")
+                      }
                     >
                       {action.name}
                     </IconButton>

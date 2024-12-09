@@ -4,7 +4,6 @@ import { createStore } from "zustand/vanilla";
 import { useStore } from "zustand";
 import Dexie from "dexie";
 import { Events } from "@/schema/events";
-import { dummyEvents } from "@/data/dummyEvents";
 
 class AppDatabase extends Dexie {
   events!: Dexie.Table<Events[], number>;
@@ -27,7 +26,7 @@ interface EventsStore {
 }
 
 const useEventsStore = createStore<EventsStore>((set) => ({
-  events: dummyEvents,
+  events: [],
   setEvents: async (events: Events[]) => {
     set({ events });
     if (db) {
@@ -42,15 +41,15 @@ const useEventsStore = createStore<EventsStore>((set) => ({
       if (events) {
         set({ events });
       } else {
-        set({ events: dummyEvents });
+        set({ events: [] });
       }
     } else {
-      set({ events: dummyEvents });
+      set({ events: [] });
     }
   },
 
   restartGame: () => {
-    set({ events: dummyEvents });
+    set({ events: [] });
     if (db) {
       db.events.clear();
     }

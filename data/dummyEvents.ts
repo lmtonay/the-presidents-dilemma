@@ -2,7 +2,7 @@ import { Events } from "@/schema/events";
 
 export const dummyEvents : Events[] = [
   {
-    date: "2021-08-01",
+    date: "01.01.2021",
     day: "1",
     events: [
       {
@@ -24,7 +24,7 @@ export const dummyEvents : Events[] = [
               europeanUnion: -7,
             },
           },
-          morals: {
+          morale: {
             happiness: -5,
             religion: 7,
             stability: -3,
@@ -59,7 +59,7 @@ export const dummyEvents : Events[] = [
               republican: 5,
             },
           },
-          morals: {
+          morale: {
             security: 5,
             approval: 5,
             stability: 5,
@@ -75,7 +75,7 @@ export const dummyEvents : Events[] = [
   },
 
   {
-    date: "2021-08-02",
+    date: "02.01.2021",
     day: "2",
     events: [
       {
@@ -97,7 +97,7 @@ export const dummyEvents : Events[] = [
               europeanUnion: 7,
             },
           },
-          morals: {
+          morale: {
             happiness: 10,
             religion: -2,
             stability: 5,
@@ -128,7 +128,7 @@ export const dummyEvents : Events[] = [
               republican: 5,
             },
           },
-          morals: {
+          morale: {
             economy: 10,
             approval: 5,
             stability: 5,

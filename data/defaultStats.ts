@@ -59,7 +59,7 @@ const defaultStats: Stats = {
       IMF: 60,
     },
   },
-  moral: {
+  morale: {
     approval: 60,
     happiness: 60,
     stability: 60,

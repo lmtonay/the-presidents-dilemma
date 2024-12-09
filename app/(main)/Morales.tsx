@@ -7,34 +7,24 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { Moral } from "@/schema/stats";
+import { Morale } from "@/schema/stats";
 import React from "react";
 
-interface MoralsProps {
-  data: Moral;
+interface MoralesProps {
+  data: Morale;
 }
 
-const Morals: React.FC<MoralsProps> = ({ data }) => {
+const Morales: React.FC<MoralesProps> = ({ data }) => {
   return (
     <div className="my-1 p-2 rounded border-2 border-red-500">
-      {/* <h4 className="text-lg text-red-500 font-bold">Morals</h4>
-      <div className="flex flex-col gap-2">
-        {Object.entries(data).map(([key, value], i) => (
-          <div key={i} className="flex flex-row justify-between items-center">
-            <h5>{key.charAt(0).toUpperCase() + key.slice(1)}</h5>
-            <p>{value}</p>
-          </div>
-        ))}
-      </div> */}
-
       <Accordion type="single" collapsible className="w-full">
-        <AccordionItem className="border-0" value="morals">
+        <AccordionItem className="border-0" value="morale">
           <AccordionTrigger>
-            <h4 className="text-lg text-red-500 font-bold">Morals</h4>
+            <h4 className="text-lg text-red-500 font-bold">Morales</h4>
           </AccordionTrigger>
           <AccordionContent>
             <div className="flex flex-col gap-2">
-              {Object.entries(data).map(([key, value], i) => (
+              {Object.entries(data)?.map(([key, value], i) => (
                 <ProgressBar
                   key={i}
                   value={value}
@@ -50,4 +40,4 @@ const Morals: React.FC<MoralsProps> = ({ data }) => {
   );
 };
 
-export default Morals;
+export default Morales;

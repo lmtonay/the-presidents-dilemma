@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { EventInfluence } from "@/schema/events";
+import Stats from "@/schema/stats";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 
@@ -14,10 +17,10 @@ export function capitalize(str: string) {
 }
 
 export const flatten = (
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
   obj: any,
   parentKey = "",
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
   res: { [key: string]: any } = {}
 ) => {
   for (const key in obj) {
@@ -76,3 +79,38 @@ export const randInt = ({
   if (min && max) return Math.floor(Math.random() * (max - min + 1) + min);
   return Math.floor(Math.random() * 100000);
 }
+
+const apply = (base: any, influence: any): any => {
+
+  if (typeof base === "number" && typeof influence === "number") {
+    return (base + influence) < 0 ? 0 : (base + influence) > 100 ? 100 : base + influence;
+  }
+
+  if (typeof base === "string" || typeof base === "boolean") {
+
+    return influence;
+  }
+
+  if (typeof base === "object" && typeof influence === "object" && base !== null && influence !== null) {
+    const result = { ...base };
+    for (const key in influence) {
+      result[key] = key in base ? apply(base[key], influence[key]) : influence[key];
+    }
+    return result;
+  }
+
+
+  return influence;
+};
+
+
+export function applyInfluence(base: Stats, influence: EventInfluence): Stats {
+  const result: Stats = { ...base };
+
+  for (const key in influence) {
+    result[key] = key in base ? apply(base[key], influence[key]) : influence[key];
+  }
+
+  return result;
+}
+

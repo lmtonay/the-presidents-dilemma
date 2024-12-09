@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useContext } from "react";
+import React from "react";
 import BasicInfo from "./BasicInfo";
 import Supports from "./Supports";
-import Morals from "./Morals";
+import Morales from "./Morales";
 import Finances from "./Finances";
 import useStats from "@/store/stats-store";
 
@@ -19,7 +19,7 @@ const Stats: React.FC = () => {
         country={stats?.countryInfo}
       />
       <Supports data={stats?.support} />
-      <Morals data={stats?.moral} />
+      <Morales data={stats?.morale} />
       <Finances data={stats?.finance} />
     </div>
   );
