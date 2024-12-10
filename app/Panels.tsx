@@ -10,6 +10,7 @@ import Actions from "./(main)/Actions";
 import NewGame from "./NewGame";
 import Header from "./(main)/Header";
 import NextButton from "./(main)/NextButton";
+import dynamic from "next/dynamic";
 
 interface PanelProps {
   children: React.ReactNode;
@@ -44,4 +45,6 @@ const Panel: React.FC<PanelProps> = ({ children }) => {
   );
 };
 
-export default Panel;
+export default dynamic(() => Promise.resolve(Panel), {
+  ssr: false,
+});

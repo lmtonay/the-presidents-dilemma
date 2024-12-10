@@ -43,6 +43,7 @@ const useStatsStore = createStore<StatsStore>((set) => ({
       await db.stats.clear();
       await db.stats.add(stats);
     }
+    console.log(stats)
   },
   setParliament: async (parliament: Parliament) => {
     set({ parliament });

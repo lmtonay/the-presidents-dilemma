@@ -7,6 +7,7 @@ import { Continent, PartyType } from "@/schema/stats";
 import { eventsStore } from "@/store/events-store";
 import { statsStore } from "@/store/stats-store";
 import { applyInfluence } from "./utils";
+import { actionsStore } from "@/store/actions-store";
 
 type InitialGameData = {
   difficulty: string;
@@ -39,10 +40,8 @@ export const startGame = async (data: InitialGameData) => {
 
   defaultStats.gameData.new = false;
 
-  // Update Zustand store with the new stats
   setStats(defaultStats);
 
-  // Update Zustand store with the new events
   setEvents([
     {
       date: defaultStats.gameData.date,
@@ -59,19 +58,18 @@ export const startGame = async (data: InitialGameData) => {
     },
   ]);
 
-  // Simulate the first-time election
   generateFirstParliament(data.continent, data.partyType, data.partyName, data.countryName);
 };
 
 export const executeAction = (event: Event) => {
   const events = eventsStore.getState().events;
   const stats = statsStore.getState().stats;
+  const refreshActions = actionsStore.getState().refreshActions;
 
   const updatedStats = applyInfluence(stats, event.influence);
 
   statsStore.getState().setStats(updatedStats);
 
-  // add the event to the list of events in the same date as stats?.gameData?.date
 
   const updatedEvents = events.map((e) => {
     if (e.date === stats?.gameData?.date) {
@@ -83,6 +81,7 @@ export const executeAction = (event: Event) => {
     return e;
   });
 
-  // Update Zustand store with the new events
   eventsStore.getState().setEvents(updatedEvents);
+
+  refreshActions();
 };

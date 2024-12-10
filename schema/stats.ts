@@ -78,7 +78,8 @@ export type Support = {
 };
 
 export type Morale = {
-  humanRights?: number;
+  rights?: number;
+  liberty?: number;
   environment?: number;
   security?: number;
   stability?: number;

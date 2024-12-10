@@ -12,6 +12,8 @@ interface IconButtonProps
   children: React.ReactNode;
   icon: IconType;
   variant?: "default" | "secondary" | "danger" | "ghost" | "outline" | "outlineSecondary" | "outlineDanger" | "outlineGhost" | null;
+  audio?: string;
+  muted?: boolean;
 }
 
 const IconButton: React.FC<IconButtonProps> = ({
@@ -30,7 +32,7 @@ const IconButton: React.FC<IconButtonProps> = ({
       variant={variant}
       {...props}
     >
-      <Icon className="scale-150" />
+      {Icon && <Icon className="scale-150" />}
       <h5 className="mb-[-8px] text-wrap">{children}</h5>
     </Button>
   );

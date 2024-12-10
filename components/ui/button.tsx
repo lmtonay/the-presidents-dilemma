@@ -11,13 +11,19 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-blue-500 text-white hover:bg-blue-600 rounded-full border-r-2 border-b-2 border-blue-200 active:border-0 active:border-t-2",
-        secondary: "bg-neutral-100 text-neutral-900 hover:bg-neutral-200 rounded-full border-r-2 border-b-2 border-neutral-300 active:border-0 active:border-t-2",
-        danger: "bg-red-500 text-white hover:bg-red-600 rounded-full border-r-2 border-b-2 border-red-200 active:border-0 active:border-t-2",
+        default:
+          "bg-blue-500 text-white hover:bg-blue-600 rounded-full border-r-2 border-b-2 border-blue-200 active:border-0 active:border-t-2",
+        secondary:
+          "bg-neutral-100 text-neutral-900 hover:bg-neutral-200 rounded-full border-r-2 border-b-2 border-neutral-300 active:border-0 active:border-t-2",
+        danger:
+          "bg-red-500 text-white hover:bg-red-600 rounded-full border-r-2 border-b-2 border-red-200 active:border-0 active:border-t-2",
         ghost: "bg-transparent text-neutral-900",
-        outline: "bg-transparent text-blue-500 hover:bg-blue-50 rounded-full border-2 border-blue-200 active:border-transparent",
-        outlineSecondary: "bg-transparent text-neutral-900 hover:bg-neutral-50 rounded-full border-2 border-neutral-300 active:border-transparent",
-        outlineDanger: "bg-transparent text-red-500 hover:bg-red-50 rounded-full border-2 border-red-200 active:border-transparent",
+        outline:
+          "bg-transparent text-blue-500 hover:bg-blue-50 rounded-full border-2 border-blue-200 active:border-transparent",
+        outlineSecondary:
+          "bg-transparent text-neutral-900 hover:bg-neutral-50 rounded-full border-2 border-neutral-300 active:border-transparent",
+        outlineDanger:
+          "bg-transparent text-red-500 hover:bg-red-50 rounded-full border-2 border-red-200 active:border-transparent",
         outlineGhost: "bg-transparent text-neutral-900",
       },
       size: {
@@ -38,18 +44,34 @@ export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
   asChild?: boolean;
+  audio?: string;
+  muted?: boolean;
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, onClick, size, asChild = false, ...props }, ref) => {
+  (
+    {
+      className,
+      variant,
+      onClick,
+      size,
+      asChild = false,
+      audio = "/audios/click.mp3",
+      muted = false,
+      ...props
+    },
+    ref
+  ) => {
     const Comp = asChild ? Slot : "button";
     return (
       <Comp
         className={cn(buttonVariants({ variant, size, className }))}
         ref={ref}
         onClick={(e) => {
-          const audio = new Audio("/audios/click.wav");
-          audio.play();
+          if (!muted) {
+            const a = new Audio(audio);
+            a.play();
+          }
           onClick?.(e);
         }}
         {...props}
