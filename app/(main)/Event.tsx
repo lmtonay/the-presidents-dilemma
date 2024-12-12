@@ -3,6 +3,15 @@
 import { cn, flatten, influenceFormat } from "@/lib/utils";
 import { useMemo } from "react";
 
+const wordFilter = [
+  "morale",
+  "International",
+  "INTERNATIONAL",
+  "Parliament",
+  "Military",
+  "Judiciary",
+];
+
 const reverseString = (str: string): string => {
   if (!str) return "";
 
@@ -13,11 +22,18 @@ const reverseString = (str: string): string => {
   if (words.length > 3) {
     const firstTwoReversed = words.slice(0, 2).reverse();
     const remainingWords = words.slice(2);
-    return [...remainingWords, ...firstTwoReversed].join(" ").toUpperCase();
+    return [...remainingWords, ...firstTwoReversed]
+      .filter((word) => !wordFilter.includes(word))
+      .join(" ")
+      .toUpperCase();
   }
 
   // Otherwise, return the usual behavior (reverse all words and join with spaces)
-  return words.reverse().join(" ").toUpperCase();
+  return words
+    .reverse()
+    .filter((word) => !wordFilter.includes(word))
+    .join(" ")
+    .toUpperCase();
 };
 
 interface EventProps {
@@ -27,6 +43,32 @@ interface EventProps {
   type: string;
   influence: object;
 }
+
+const Influence: React.FC<{ objKey: string; value: number }> = ({
+  objKey,
+  value,
+}) => {
+  const rs = useMemo(() => reverseString(objKey), [objKey]);
+
+  return (
+    <li className="flex justify-between items-center mb-1">
+      <small>
+        <b>{rs.substring(0, 17) + (rs.length > 17 ? "..." : "")}</b>
+      </small>
+      <b
+        className={cn(
+          {
+            "bg-green-500": value > 0,
+            "bg-red-500": value < 0,
+          },
+          "p-[2px] py-0 text-white rounded"
+        )}
+      >
+        {influenceFormat(objKey, value)}
+      </b>
+    </li>
+  );
+};
 
 const Event: React.FC<EventProps> = ({
   action,
@@ -59,59 +101,10 @@ const Event: React.FC<EventProps> = ({
       </div>
       <p className="text-md mb-2">{description}</p>
       <ul className="text-xs list-disc">
-        <div className="grid grid-cols-2 gap-4">
-          <div>
-            {
-              // first half of the influence object
-              influenceArr
-                .slice(
-                  0,
-                  Math.ceil(influenceArr.length / 2)
-                )
-                .map(([key, value], i) => (
-                  <li
-                    key={i}
-                    className="flex justify-between items-center my-1"
-                  >
-                    <b>{reverseString(key)}:</b>
-                    <b
-                      className={cn(
-                        {
-                          "bg-green-500": value > 0,
-                          "bg-red-500": value < 0,
-                        },
-                        "p-[2px] py-0 text-white rounded"
-                      )}
-                    >
-                      {influenceFormat(key, value)}
-                    </b>
-                  </li>
-                ))
-            }
-          </div>
-          <div>
-            {influenceArr
-              .slice(
-                Math.ceil(influenceArr.length / 2),
-                influenceArr.length
-              )
-              .map(([key, value], i) => (
-                <li key={i} className="flex justify-between items-center my-1">
-                  <b>{reverseString(key)}:</b>
-                  <b
-                    className={cn(
-                      {
-                        "bg-green-500": value > 0,
-                        "bg-red-500": value < 0,
-                      },
-                      "p-[2px] py-0 text-white rounded"
-                    )}
-                  >
-                    {influenceFormat(key, value)}
-                  </b>
-                </li>
-              ))}
-          </div>
+        <div className="grid grid-cols-4 gap-x-2">
+          {influenceArr.map(([key, value]) => (
+            <Influence key={key} objKey={key} value={value} />
+          ))}
         </div>
       </ul>
     </div>

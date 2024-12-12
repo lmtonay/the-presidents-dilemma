@@ -28,21 +28,26 @@ const Finances: React.FC<FinanceProps> = ({ data }) => {
                 key={i}
                 className="flex flex-row justify-between items-center"
               >
-                <h5 className="text-sm">{key.charAt(0).toUpperCase() + key.slice(1)}</h5>
+                <h5 className="text-sm">
+                  {key.charAt(0).toUpperCase() + key.slice(1)}
+                </h5>
                 <small>
-                  ৳{numberToSuffix(typeof value === "number" ? value : Number(value))}
+                  ৳
+                  {numberToSuffix(
+                    typeof value === "number" ? value : Number(value)
+                  )}
                 </small>
               </div>
             )
         )}
-        <Accordion type="single" collapsible className="w-full">
+        <Accordion type="single" collapsible className="w-full" defaultValue="tax">
           <AccordionItem className="border-0" value="tax">
             <AccordionTrigger>
               <h5>Taxes</h5>
             </AccordionTrigger>
             <AccordionContent>
               <div className="flex flex-col">
-                {Object.entries(data.tax).map(([key, value], i) => (
+                {Object.entries(data.tax ?? {}).map(([key, value], i) => (
                   <div
                     key={i}
                     className="flex flex-row justify-between items-center"

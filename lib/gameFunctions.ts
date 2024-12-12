@@ -58,7 +58,12 @@ export const startGame = async (data: InitialGameData) => {
     },
   ]);
 
-  generateFirstParliament(data.continent, data.partyType, data.partyName, data.countryName);
+  generateFirstParliament(
+    data.continent,
+    data.partyType,
+    data.partyName,
+    data.countryName
+  );
 };
 
 export const executeAction = (event: Event) => {
@@ -69,7 +74,6 @@ export const executeAction = (event: Event) => {
   const updatedStats = applyInfluence(stats, event.influence);
 
   statsStore.getState().setStats(updatedStats);
-
 
   const updatedEvents = events.map((e) => {
     if (e.date === stats?.gameData?.date) {

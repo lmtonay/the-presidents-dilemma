@@ -12,6 +12,8 @@ import Header from "./(main)/Header";
 import NextButton from "./(main)/NextButton";
 import dynamic from "next/dynamic";
 
+import { AppProgressBar as ProgressBar } from "next-nprogress-bar";
+
 interface PanelProps {
   children: React.ReactNode;
 }
@@ -29,7 +31,9 @@ const Panel: React.FC<PanelProps> = ({ children }) => {
         <ResizablePanel defaultSize={50} minSize={20}>
           <div className="relative h-screen">
             <Header />
-            <div className="h-screen overflow-auto scroll pb-[200px]">{children}</div>
+            <div className="h-screen overflow-auto scroll pb-[200px]">
+              {children}
+            </div>
             <NextButton />
           </div>
         </ResizablePanel>
@@ -41,6 +45,7 @@ const Panel: React.FC<PanelProps> = ({ children }) => {
         </ResizablePanel>
       </ResizablePanelGroup>
       <NewGame />
+      <ProgressBar height="2px" color="black" shallowRouting />
     </main>
   );
 };

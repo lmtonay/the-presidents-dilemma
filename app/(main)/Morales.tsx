@@ -17,7 +17,7 @@ interface MoralesProps {
 const Morales: React.FC<MoralesProps> = ({ data }) => {
   return (
     <div className="my-1 p-2 rounded border-2 border-red-500">
-      <Accordion type="single" collapsible className="w-full">
+      <Accordion defaultValue="morale" type="single" collapsible className="w-full">
         <AccordionItem className="border-0" value="morale">
           <AccordionTrigger>
             <h4 className="text-lg text-red-500 font-bold">Morales</h4>

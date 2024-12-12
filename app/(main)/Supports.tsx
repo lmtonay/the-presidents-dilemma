@@ -16,11 +16,12 @@ interface SupportsProps {
 }
 
 const Supports: React.FC<SupportsProps> = ({ data }) => {
+  console.log(data);
   return (
     <div className="my-1 p-2 rounded border-2 border-red-500">
       <h4 className="text-lg text-red-500 font-bold">Supports</h4>
       <Separator />
-      <Accordion type="single" collapsible className="w-full">
+      <Accordion type="single" collapsible className="w-full" defaultValue="citizens">
         {Object.entries(data).map(([key, value], i) => (
           <AccordionItem key={i} value={key}>
             <AccordionTrigger>

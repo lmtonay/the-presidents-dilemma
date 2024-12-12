@@ -26,8 +26,8 @@ export default function getMilitaryAndDefense() {
         {
             name: statsStore.getState().stats.countryInfo.emergency?.active ? "End Emergency" : "Declare Emergency",
             icon: statsStore.getState().stats.countryInfo.emergency?.active ? FaWindowClose : FaExclamationTriangle,
-            onClick: (reason = "internal issues") => {
-                console.log(statsStore.getState().stats.countryInfo.emergency?.active)
+            description: statsStore.getState().stats.countryInfo.emergency?.active ? "Ending the national emergency will restore the parliament and constitution. The military will be withdrawn." : "Declaring a national emergency will suspend the parliament and constitution. The military will be deployed to maintain law and order.",
+            onClick: () => {
                 if (statsStore.getState().stats.countryInfo.emergency?.active) {
                     executeAction({
                         action: "End Emergency",
@@ -74,6 +74,11 @@ export default function getMilitaryAndDefense() {
                         },
                     })
                 } else {
+                    const reason = prompt(`Declaring a national emergency will suspend the parliament and constitution. The military will be deployed to maintain law and order. \n\nEnter the reason for declaring emergency:
+                        `, "internal conflict") as string;
+
+                    if (!reason) return;
+
                     executeAction({
                         action: "Declare Emergency",
                         title: "National Emergency",

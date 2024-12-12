@@ -47,6 +47,7 @@ export type ActionButton = {
   onClick?: Function;
   route?: string;
   audio?: string;
+  description?: string;
 };
 
 export type ActionButtons = {
